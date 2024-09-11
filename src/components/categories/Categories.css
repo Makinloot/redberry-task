@@ -1,0 +1,132 @@
+.wrapper {
+    display: grid;
+    grid-template-columns: 785px 1fr;
+    padding-top: 77px;
+}
+
+.categories {
+    border: 1px solid #DBDBDB;
+    padding: 6px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 10px;
+}
+
+.category-btn {
+    font-size: 1rem;
+}
+
+.category-btn span {
+    font-family: 'firago-bold'
+}
+
+.category-btn:hover {
+    background-color: #DBDBDB !important;
+}
+.category-btn-active {
+    background-color: #DBDBDB !important;
+}
+
+.add-btns {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 1rem;
+}
+
+.add-btn {
+    background-color: #F93B1D;
+    font-size: 1rem;
+    /* padding: 10px 16px !important; */
+    border-radius: 10px;
+    padding: 10px 16px;
+    color: #fff;
+    height: 47px;
+    width: 230px;
+}
+
+.add-btn.agent-btn {
+    background-color: #fff;
+    border: 1px solid #F93B1D;
+    color: #F93B1D;
+}
+
+.add-btn:hover {
+    background-color: #DF3014 !important;
+    color: #fff !important;
+    border: none;
+}
+
+.add-btn.agent-btn:hover {
+    background-color: #F93B1D !important;
+}
+
+/* MODAL OPTIONS CSS */
+.options-title {
+    font-size: 1rem;
+    font-family: 'firago-bold';
+}
+
+.options-dropdown {
+    position: absolute;
+    top: calc(100% + 15px);
+    left: 0;
+    min-width: 731px;
+    background-color: #fff;
+    border-radius: 8px;
+    padding: 24px;
+    z-index: 1000;
+    border: 1px solid #DBDBDB;
+}
+
+.options-dropdown.price {
+    min-width: 382px;
+}
+
+.options-wrapper {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    margin-top: 20px;
+    column-gap: 50px;
+    row-gap: 14px;
+}
+
+.options-wrapper.price {
+    grid-template-columns: 1fr 1fr;
+    column-gap: 15px;
+}
+
+.option {
+    font-size: 14px;
+}
+
+.options-btn-wrapper {
+    padding-top: 32px;
+    text-align: right;
+}
+
+.options-btn-wrapper button {
+    background-color: #F93B1D;
+}
+
+.options-btn-wrapper button:hover {
+    background-color: #DF3014 !important;
+}
+
+.price-input {
+    padding: 12.5px 18px 10px;
+    width: 100%;
+}
+
+.auto-prices-wrapper {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    margin-top: 24px;
+    gap: 15px;
+}
+
+.auto-prices-title {
+    font-family: "firago-bold";
+    font-size: 0.875rem;
+}

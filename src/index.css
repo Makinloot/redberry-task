@@ -1,0 +1,16 @@
+*, *::after, *::before {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'firago-regular';
+}
+
+body {
+  font-family: 'firago-regular';
+}
+
+.container {
+  width: 1596px;
+  max-width: 100%;
+  margin: 0 auto;
+}
