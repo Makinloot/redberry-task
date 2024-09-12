@@ -89,7 +89,7 @@ const Home = () => {
                     img={item.image}
                     price={item.price}
                     rented={item.is_rental}
-                    zip={item.zip}
+                    zip={item.zip_code}
                     id={item.id}
                   />
                 </div>

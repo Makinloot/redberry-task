@@ -87,7 +87,9 @@ const Listing = () => {
                   >
                     <img className="agent-img" src={testImg} />
                     <div style={{ display: "flex", flexDirection: "column" }}>
-                      <span className="agent-name">სოფიო გელოვანი</span>
+                      <span className="agent-name">
+                        {listing.agent.name} {listing.agent.surname}
+                      </span>
                       <span className="agent-status">აგენტი</span>
                     </div>
                   </div>
@@ -101,7 +103,7 @@ const Listing = () => {
                       }}
                     >
                       <img src={emailIcon} />
-                      <span>sophio.gelovani@redberry.ge</span>
+                      <span>{listing.agent.email}</span>
                     </div>
                     <div
                       style={{
@@ -112,7 +114,7 @@ const Listing = () => {
                       }}
                     >
                       <img src={phoneIcon} />
-                      <span>577 777 777</span>
+                      <span>{listing.agent.phone}</span>
                     </div>
                   </div>
                 </div>
