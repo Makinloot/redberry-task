@@ -8,6 +8,11 @@ const useAppContext = () => {
 
 const ContextProvider = ({ children }) => {
   const [openModal, setOpenModal] = useState(false);
+  // region checkboxes
+  const [selectedItems, setSelectedItems] = useState([]);
+  const [priceRange, setPriceRange] = useState({ from: "", to: "" });
+  const [areaRange, setAreaRange] = useState({ from: "", to: "" });
+  const [bedrooms, setBedrooms] = useState(1);
 
   // authorization for api calls
   const api = axios.create({
@@ -20,7 +25,20 @@ const ContextProvider = ({ children }) => {
     api.defaults.baseURL = url;
   };
 
-  const values = { setBaseURL, api, openModal, setOpenModal };
+  const values = {
+    setBaseURL,
+    api,
+    openModal,
+    setOpenModal,
+    selectedItems,
+    setSelectedItems,
+    priceRange,
+    setPriceRange,
+    areaRange,
+    setAreaRange,
+    bedrooms,
+    setBedrooms,
+  };
   return <Context.Provider value={values}>{children}</Context.Provider>;
 };
 

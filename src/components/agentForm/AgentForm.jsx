@@ -1,4 +1,8 @@
-import { CheckOutlined, UploadOutlined } from "@ant-design/icons";
+import {
+  CheckOutlined,
+  CloseOutlined,
+  UploadOutlined,
+} from "@ant-design/icons";
 import "./AgentForm.css";
 import { Form, Input, Button, Row, Col, Upload } from "antd";
 import plusCircle from "/plus-circle.png";
@@ -17,57 +21,11 @@ const AgentForm = () => {
       <Row gutter={31}>
         <Col span={12}>
           <Form.Item className="agent-form-item" name="name" label={"სახელი"}>
-            <Input />
-            <div className="input-field-msg-wrapper">
-              <CheckOutlined />
-              <span>მინიმუმ 2 სიმბოლო</span>
-            </div>
-          </Form.Item>
-        </Col>
-
-        <Col span={12}>
-          <Form.Item className="agent-form-item" label="გვარი" name="username">
-            <Input />
-            <div className="input-field-msg-wrapper">
-              <CheckOutlined />
-              <span>მინიმუმ 2 სიმბოლო</span>
-            </div>
+            <Input name="name" />
           </Form.Item>
         </Col>
       </Row>
-      <Row gutter={31} style={{ marginTop: 28 }}>
-        <Col span={12}>
-          <Form.Item
-            className="agent-form-item"
-            label="ელ-ფოსტა"
-            name="email"
-            // rules={[{ required: true, message: "Please input your name!" }]}
-          >
-            <Input />
-            <div className="input-field-msg-wrapper">
-              <CheckOutlined />
-              <span>გამოიყენეთ @redberry.ge ფოსტა</span>
-            </div>
-          </Form.Item>
-        </Col>
-
-        <Col span={12}>
-          <Form.Item
-            className="agent-form-item"
-            label="ტელეფონის ნომერი"
-            name="mobileNumber"
-            // rules={[{ required: true, message: "Please input your username!" }]}
-          >
-            <Input />
-            <div className="input-field-msg-wrapper">
-              <CheckOutlined />
-              <span>მხოლოდ რიცხვები</span>
-            </div>
-          </Form.Item>
-        </Col>
-      </Row>
-
-      <span className="upload-label">ატვირთეთ ფოტო</span>
+      {/* <span className="upload-label">ატვირთეთ ფოტო</span>
       <Form.Item
         name="image"
         valuePropName="fileList"
@@ -91,8 +49,7 @@ const AgentForm = () => {
             <Button className="upload-btn" icon={<img src={plusCircle} />} />
           )}
         </Upload>
-      </Form.Item>
-
+      </Form.Item> */}
       <Form.Item className="form-buttons">
         <Row justify={"end"} gutter={15}>
           <Col>

@@ -2,13 +2,29 @@ import { useState, useRef, useEffect } from "react";
 import { UpOutlined, DownOutlined } from "@ant-design/icons";
 import { Button, Input } from "antd";
 import m2Icon from "/m2-icon.png";
+import { useAppContext } from "../../../context/ContextProvider";
 
 const Area = () => {
   const [visible, setVisible] = useState(false);
   const dropdownRef = useRef(null);
+  const { areaRange, setAreaRange } = useAppContext();
+
+  const [error, setError] = useState("");
 
   const toggleDropdown = () => {
     setVisible(!visible);
+  };
+
+  const handleInputChange = (field, value) => {
+    setAreaRange((prev) => ({ ...prev, [field]: value }));
+  };
+
+  const handleSpanClick = (value) => {
+    setAreaRange((prev) => ({ ...prev, from: value }));
+  };
+
+  const handleSpanClickTo = (value) => {
+    setAreaRange((prev) => ({ ...prev, to: value }));
   };
 
   const handleClickOutside = (event) => {
@@ -23,6 +39,19 @@ const Area = () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
+
+  useEffect(() => {
+    if (areaRange.from && areaRange.to) {
+      const fromValue = parseFloat(areaRange.from);
+      const toValue = parseFloat(areaRange.to);
+
+      if (fromValue > toValue) {
+        setError("გთხოვთ, შეიყვანოთ სწორი დიაპაზონი");
+      } else {
+        setError(""); // Clear error if the range is valid
+      }
+    }
+  }, [areaRange]);
 
   const handleConfirm = () => {
     setVisible(false);
@@ -55,13 +84,30 @@ const Area = () => {
                 className="price-input"
                 placeholder="დან"
                 suffix={<img src={m2Icon} />}
+                onChange={(e) => handleInputChange("from", e.target.value)}
+                value={areaRange.from}
               />
               <Input
                 className="price-input"
                 placeholder="მდე"
                 suffix={<img src={m2Icon} />}
+                onChange={(e) => handleInputChange("to", e.target.value)}
+                value={areaRange.to}
               />
             </div>
+            {error && (
+              <span
+                style={{
+                  color: "red",
+                  fontSize: 14,
+                  whiteSpace: "nowrap",
+                  marginTop: 5,
+                  display: "block",
+                }}
+              >
+                ჩაწერეთ ვალიდური მონაცემი
+              </span>
+            )}
             {/* offered prices */}
             <div className="auto-prices-wrapper">
               <div>
@@ -74,19 +120,34 @@ const Area = () => {
                     marginTop: 16,
                   }}
                 >
-                  <span>
+                  <span
+                    style={{ cursor: "pointer" }}
+                    onClick={() => handleSpanClick("50,000")}
+                  >
                     50,000 <img src={m2Icon} />
                   </span>
-                  <span>
+                  <span
+                    style={{ cursor: "pointer" }}
+                    onClick={() => handleSpanClick("100,000")}
+                  >
                     100,000 <img src={m2Icon} />
                   </span>
-                  <span>
+                  <span
+                    style={{ cursor: "pointer" }}
+                    onClick={() => handleSpanClick("150,000")}
+                  >
                     150,000 <img src={m2Icon} />
                   </span>
-                  <span>
+                  <span
+                    style={{ cursor: "pointer" }}
+                    onClick={() => handleSpanClick("200,000")}
+                  >
                     200,000 <img src={m2Icon} />
                   </span>
-                  <span>
+                  <span
+                    style={{ cursor: "pointer" }}
+                    onClick={() => handleSpanClick("300,000")}
+                  >
                     300,000 <img src={m2Icon} />
                   </span>
                 </div>
@@ -101,19 +162,34 @@ const Area = () => {
                     marginTop: 16,
                   }}
                 >
-                  <span>
+                  <span
+                    style={{ cursor: "pointer" }}
+                    onClick={() => handleSpanClickTo("50,000")}
+                  >
                     50,000 <img src={m2Icon} />
                   </span>
-                  <span>
+                  <span
+                    style={{ cursor: "pointer" }}
+                    onClick={() => handleSpanClickTo("100,000")}
+                  >
                     100,000 <img src={m2Icon} />
                   </span>
-                  <span>
+                  <span
+                    style={{ cursor: "pointer" }}
+                    onClick={() => handleSpanClickTo("150,000")}
+                  >
                     150,000 <img src={m2Icon} />
                   </span>
-                  <span>
+                  <span
+                    style={{ cursor: "pointer" }}
+                    onClick={() => handleSpanClickTo("200,000")}
+                  >
                     200,000 <img src={m2Icon} />
                   </span>
-                  <span>
+                  <span
+                    style={{ cursor: "pointer" }}
+                    onClick={() => handleSpanClickTo("300,000")}
+                  >
                     300,000 <img src={m2Icon} />
                   </span>
                 </div>

@@ -1,13 +1,26 @@
 import { useState, useRef, useEffect } from "react";
 import { UpOutlined, DownOutlined, DollarOutlined } from "@ant-design/icons";
-import { Button, Input } from "antd";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faLariSign } from "@fortawesome/free-solid-svg-icons";
-import lariIcon from "/lari-icon.png";
+import { Alert, Button, Input } from "antd";
+import { useAppContext } from "../../../context/ContextProvider";
 
 const Prices = () => {
   const [visible, setVisible] = useState(false);
   const dropdownRef = useRef(null);
+  const { priceRange, setPriceRange } = useAppContext();
+
+  const [error, setError] = useState("");
+
+  const handleInputChange = (field, value) => {
+    setPriceRange((prev) => ({ ...prev, [field]: value }));
+  };
+
+  const handleSpanClick = (value) => {
+    setPriceRange((prev) => ({ ...prev, from: value }));
+  };
+
+  const handleSpanClickTo = (value) => {
+    setPriceRange((prev) => ({ ...prev, to: value }));
+  };
 
   const toggleDropdown = () => {
     setVisible(!visible);
@@ -25,6 +38,19 @@ const Prices = () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
+
+  useEffect(() => {
+    if (priceRange.from && priceRange.to) {
+      const fromValue = parseFloat(priceRange.from);
+      const toValue = parseFloat(priceRange.to);
+
+      if (fromValue > toValue) {
+        setError("გთხოვთ, შეიყვანოთ სწორი დიაპაზონი");
+      } else {
+        setError(""); // Clear error if the range is valid
+      }
+    }
+  }, [priceRange]);
 
   const handleConfirm = () => {
     setVisible(false);
@@ -51,9 +77,34 @@ const Prices = () => {
           <div ref={dropdownRef} className="options-dropdown price">
             <span className="options-title">ფასის მიხედვით</span>
             <div className="options-wrapper price">
-              <Input className="price-input" placeholder="დან" suffix={"₾"} />
-              <Input className="price-input" placeholder="მდე" suffix={"₾"} />
+              <Input
+                className="price-input"
+                placeholder="დან"
+                suffix="₾"
+                onChange={(e) => handleInputChange("from", e.target.value)}
+                value={priceRange.from}
+              />
+              <Input
+                className="price-input"
+                placeholder="მდე"
+                suffix="₾"
+                onChange={(e) => handleInputChange("to", e.target.value)}
+                value={priceRange.to}
+              />
             </div>
+            {error && (
+              <span
+                style={{
+                  color: "red",
+                  fontSize: 14,
+                  whiteSpace: "nowrap",
+                  marginTop: 5,
+                  display: "block",
+                }}
+              >
+                ჩაწერეთ ვალიდური მონაცემი
+              </span>
+            )}
             {/* offered prices */}
             <div className="auto-prices-wrapper">
               <div>
@@ -66,11 +117,36 @@ const Prices = () => {
                     marginTop: 16,
                   }}
                 >
-                  <span>50,000 ₾</span>
-                  <span>100,000 ₾</span>
-                  <span>150,000 ₾</span>
-                  <span>200,000 ₾</span>
-                  <span>300,000 ₾</span>
+                  <span
+                    style={{ cursor: "pointer" }}
+                    onClick={() => handleSpanClick("50000")}
+                  >
+                    50,000 ₾
+                  </span>
+                  <span
+                    style={{ cursor: "pointer" }}
+                    onClick={() => handleSpanClick("100000")}
+                  >
+                    100,000 ₾
+                  </span>
+                  <span
+                    style={{ cursor: "pointer" }}
+                    onClick={() => handleSpanClick("150000")}
+                  >
+                    150,000 ₾
+                  </span>
+                  <span
+                    style={{ cursor: "pointer" }}
+                    onClick={() => handleSpanClick("200000")}
+                  >
+                    200,000 ₾
+                  </span>
+                  <span
+                    style={{ cursor: "pointer" }}
+                    onClick={() => handleSpanClick("300000")}
+                  >
+                    300,000 ₾
+                  </span>
                 </div>
               </div>
               <div>
@@ -83,11 +159,36 @@ const Prices = () => {
                     marginTop: 16,
                   }}
                 >
-                  <span>50,000 ₾</span>
-                  <span>100,000 ₾</span>
-                  <span>150,000 ₾</span>
-                  <span>200,000 ₾</span>
-                  <span>300,000 ₾</span>
+                  <span
+                    style={{ cursor: "pointer" }}
+                    onClick={() => handleSpanClickTo("50000")}
+                  >
+                    50,000 ₾
+                  </span>
+                  <span
+                    style={{ cursor: "pointer" }}
+                    onClick={() => handleSpanClickTo("100000")}
+                  >
+                    100,000 ₾
+                  </span>
+                  <span
+                    style={{ cursor: "pointer" }}
+                    onClick={() => handleSpanClickTo("150000")}
+                  >
+                    150,000 ₾
+                  </span>
+                  <span
+                    style={{ cursor: "pointer" }}
+                    onClick={() => handleSpanClickTo("200000")}
+                  >
+                    200,000 ₾
+                  </span>
+                  <span
+                    style={{ cursor: "pointer" }}
+                    onClick={() => handleSpanClickTo("300000")}
+                  >
+                    300,000 ₾
+                  </span>
                 </div>
               </div>
             </div>

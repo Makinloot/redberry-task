@@ -73,3 +73,13 @@ input {
   background-color: #f93b1d;
   color: #fff;
 }
+
+.input-msg-default {
+  display: flex;
+  gap: 4px;
+  align-items: center;
+}
+
+.agent-form-item .ant-form-item-explain-error {
+  display: none !important;
+}

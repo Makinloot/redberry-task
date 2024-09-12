@@ -6,10 +6,9 @@ import { useAppContext } from "../../../context/ContextProvider";
 const Regions = () => {
   const dropdownRef = useRef(null);
   const [visible, setVisible] = useState(false);
-  const [selectedItems, setSelectedItems] = useState([]);
   const [regions, setRegions] = useState([]);
   const [error, setError] = useState(null);
-  const { setBaseURL, api } = useAppContext();
+  const { setBaseURL, api, selectedItems, setSelectedItems } = useAppContext();
 
   // fetch cities
   useEffect(() => {
