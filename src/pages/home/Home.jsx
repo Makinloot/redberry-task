@@ -6,7 +6,7 @@ import EstateCard from "../../components/estateCard/EstateCard";
 const Home = () => {
   const { setBaseURL, api } = useAppContext();
   const [listings, setListings] = useState([]);
-  // fetch cities
+  // fetch listings
   useEffect(() => {
     const fetchCities = async () => {
       try {
@@ -46,6 +46,7 @@ const Home = () => {
                   price={item.price}
                   rented={item.is_rental}
                   zip={item.zip}
+                  id={item.id}
                 />
               </div>
             ))}

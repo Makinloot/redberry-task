@@ -1,0 +1,110 @@
+.Listing-wrapper {
+  padding: 125px 0;
+}
+
+.Listing-details {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 68px;
+}
+
+.Listing-details-img {
+  position: relative;
+}
+
+.Listing-details-img img {
+  width: 839px;
+  height: 670px;
+  object-fit: cover;
+  border-radius: 14px 14px 0px 0px;
+}
+
+.listing-details-info {
+  padding-top: 40px;
+}
+
+.price-wrapper span {
+  font-size: 3rem;
+  font-family: "firago-bold";
+}
+
+.details-flex {
+  display: flex;
+  gap: 16px;
+  margin: 24px 0 40px;
+  flex-direction: column;
+}
+
+.details-flex-item {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 1.5rem;
+  color: #808a93;
+}
+
+.listing-text {
+  font-size: 1rem;
+  color: #808a93;
+  max-width: 500px;
+  line-height: 26px;
+}
+
+.release-date {
+  font-size: 1rem;
+  color: #808a93;
+  margin-top: 10px;
+  display: block;
+  text-align: end;
+}
+
+.rental-span {
+  background-color: #02152680;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 1.25rem;
+  color: #fff;
+  position: absolute;
+  top: 21px;
+  left: 21px;
+}
+
+.listing-agent-wrapper {
+  margin-top: 50px;
+  border: 1px solid #dbdbdb;
+  border-radius: 10px;
+  padding: 24px 20px;
+  max-width: 500px;
+}
+
+.agent-img {
+  width: 72px;
+  height: 72px;
+  object-fit: cover;
+  border-radius: 100%;
+}
+
+.agent-name {
+  color: #000;
+  font-size: 1rem;
+}
+
+.agent-status {
+  font-size: 0.875rem;
+  color: #676e76;
+}
+
+.delete-listing {
+  padding: 20px;
+  border-radius: 8px;
+  border: 1px solid #676e76;
+  color: #676e76;
+  background-color: none;
+  font-size: 0.75rem;
+  margin-top: 20px;
+}
+.delete-listing:hover {
+  border: 1px solid #676e76 !important;
+  color: #fff !important;
+  background-color: #676e76 !important;
+}

@@ -7,6 +7,8 @@ const useAppContext = () => {
 };
 
 const ContextProvider = ({ children }) => {
+  const [openModal, setOpenModal] = useState(false);
+
   // authorization for api calls
   const api = axios.create({
     headers: {
@@ -18,7 +20,7 @@ const ContextProvider = ({ children }) => {
     api.defaults.baseURL = url;
   };
 
-  const values = { setBaseURL, api };
+  const values = { setBaseURL, api, openModal, setOpenModal };
   return <Context.Provider value={values}>{children}</Context.Provider>;
 };
 

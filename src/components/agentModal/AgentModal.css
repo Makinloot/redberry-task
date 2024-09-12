@@ -1,0 +1,13 @@
+.agent-modal {
+  width: 1009px !important;
+}
+
+.agent-modal .ant-modal-content {
+  padding: 85px 105px;
+}
+
+.agent-modal-title {
+  text-align: center;
+  font-size: 2rem;
+  font-family: "firago-bold";
+}

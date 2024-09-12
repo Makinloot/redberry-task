@@ -1,12 +1,18 @@
-*, *::after, *::before {
+*,
+*::after,
+*::before {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: 'firago-regular';
+  font-family: "firago-regular";
 }
 
 body {
-  font-family: 'firago-regular';
+  font-family: "firago-regular";
+}
+
+a {
+  text-decoration: none;
 }
 
 .container {
