@@ -108,3 +108,45 @@
   color: #fff !important;
   background-color: #676e76 !important;
 }
+
+.delete-listing-btn {
+  padding: 22px 20px;
+  border-radius: 10px;
+  font-size: 1rem;
+  font-weight: 500;
+  background-color: #f93b1d;
+  border: 1px solid #f93b1d;
+  color: #fff;
+}
+.delete-listing-btn:hover {
+  background-color: #df3014 !important;
+  border: 1px solid #df3014 !important;
+  color: #fff !important;
+}
+.delete-listing-btn.cancel {
+  padding: 22px 20px;
+  border-radius: 10px;
+  font-size: 1rem;
+  font-weight: 500;
+  background-color: #fff;
+  border: 1px solid #f93b1d;
+  color: #f93b1d;
+}
+.delete-listing-btn.cancel:hover {
+  background-color: #f93b1d !important;
+  border: 1px solid #f93b1d !important;
+  color: #fff !important;
+}
+
+.delete-listing p {
+  font-size: 1.25rem;
+  color: #2d3648;
+  margin: 5px 0 35px;
+}
+
+.slider-title {
+  font-size: 2rem;
+  color: #021526;
+  font-weight: 500;
+  padding: 50px 0;
+}

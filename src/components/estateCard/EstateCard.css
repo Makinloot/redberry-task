@@ -1,53 +1,54 @@
 .estate-card {
-    width: 384px;
-    height: 455px;
-    font-size: 1rem;
-    color: #02152680;
-    position: relative;
+  width: 384px;
+  height: 455px;
+  font-size: 1rem;
+  color: #02152680;
+  position: relative;
 }
 
 .estate-card .main-img {
-    object-fit: cover;
-    width: 100%;
-    height: 307px;
+  object-fit: cover;
+  width: 100%;
+  height: 307px;
 }
 
 .estate-card-price {
-    font-size: 1.75rem;
-    font-family: "firago-bold";
-    color: #000;
+  font-size: 1.75rem;
+  font-family: "firago-bold";
+  color: #000;
 }
 
 .estate-card-details {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
 
 .estate-card-row {
-    display: flex;
-    align-items: center;
-    gap: 4px;
-    padding: 0 0 14px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 0 0 14px;
 }
 .estate-card-row.no-padding {
-    padding: 0;
+  padding: 0;
 }
 
 .estate-card-col {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    width: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 50%;
+  gap: 8px;
 }
 
 .estate-card-rent {
-    position: absolute;
-    top: 10px;
-    left: 10px;
-    background-color: #02152680;
-    color: #fff;
-    font-size: 0.75rem;
-    font-weight: 500;
-    padding: 8px;
-    border-radius: 15px;
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background-color: #02152680;
+  color: #fff;
+  font-size: 0.75rem;
+  font-weight: 500;
+  padding: 8px;
+  border-radius: 15px;
 }

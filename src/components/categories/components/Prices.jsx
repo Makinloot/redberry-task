@@ -11,15 +11,27 @@ const Prices = () => {
   const [error, setError] = useState("");
 
   const handleInputChange = (field, value) => {
-    setPriceRange((prev) => ({ ...prev, [field]: value }));
+    setPriceRange((prev) => {
+      const updatedPriceRange = { ...prev, [field]: value };
+      localStorage.setItem("priceRange", JSON.stringify(updatedPriceRange));
+      return updatedPriceRange;
+    });
   };
 
   const handleSpanClick = (value) => {
-    setPriceRange((prev) => ({ ...prev, from: value }));
+    setPriceRange((prev) => {
+      const updatedPriceRange = { ...prev, from: value };
+      localStorage.setItem("priceRange", JSON.stringify(updatedPriceRange));
+      return updatedPriceRange;
+    });
   };
 
   const handleSpanClickTo = (value) => {
-    setPriceRange((prev) => ({ ...prev, to: value }));
+    setPriceRange((prev) => {
+      const updatedPriceRange = { ...prev, to: value };
+      localStorage.setItem("priceRange", JSON.stringify(updatedPriceRange));
+      return updatedPriceRange;
+    });
   };
 
   const toggleDropdown = () => {

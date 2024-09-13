@@ -16,15 +16,27 @@ const Area = () => {
   };
 
   const handleInputChange = (field, value) => {
-    setAreaRange((prev) => ({ ...prev, [field]: value }));
+    setAreaRange((prev) => {
+      const updatedPriceRange = { ...prev, [field]: value };
+      localStorage.setItem("areaRange", JSON.stringify(updatedPriceRange));
+      return updatedPriceRange;
+    });
   };
 
   const handleSpanClick = (value) => {
-    setAreaRange((prev) => ({ ...prev, from: value }));
+    setAreaRange((prev) => {
+      const updatedPriceRange = { ...prev, from: value };
+      localStorage.setItem("areaRange", JSON.stringify(updatedPriceRange));
+      return updatedPriceRange;
+    });
   };
 
   const handleSpanClickTo = (value) => {
-    setAreaRange((prev) => ({ ...prev, to: value }));
+    setAreaRange((prev) => {
+      const updatedPriceRange = { ...prev, to: value };
+      localStorage.setItem("areaRange", JSON.stringify(updatedPriceRange));
+      return updatedPriceRange;
+    });
   };
 
   const handleClickOutside = (event) => {

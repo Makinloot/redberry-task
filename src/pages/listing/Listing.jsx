@@ -5,19 +5,34 @@ import bedIcon from "/bed.png";
 import pinIcon from "/pin.png";
 import squareMetersIcon from "/square-meters.png";
 import zipIcon from "/zip.png";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { useAppContext } from "../../context/ContextProvider";
 import m2Icon from "/m2-icon.png";
 import moment from "moment";
 import emailIcon from "/email.png";
 import phoneIcon from "/phone.png";
-import { Button } from "antd";
+import { Button, Modal } from "antd";
+
+// Import Swiper React components
+import { Swiper, SwiperSlide } from "swiper/react";
+
+// Import Swiper styles
+import "swiper/css";
+import "swiper/css/pagination";
+import "swiper/css/navigation";
+
+import { Pagination, Navigation } from "swiper/modules";
+import axios from "axios";
+import EstateCard from "../../components/estateCard/EstateCard";
 
 const Listing = () => {
   const { id } = useParams();
-
+  const navigate = useNavigate();
   const { setBaseURL, api } = useAppContext();
   const [listing, setListing] = useState();
+  const [open, setOpen] = useState(false);
+  const [filteredRegions, setFilteredRegions] = useState([]);
+
   // fetch listing
   useEffect(() => {
     const fetchCities = async () => {
@@ -26,15 +41,48 @@ const Listing = () => {
         const response = await api.get(`/real-estates/${id}`);
         console.log(response.data);
         setListing(response.data);
+        window.scrollTo(0, 0);
       } catch (error) {
         console.error("Error fetching cities:", error);
       }
     };
 
     fetchCities();
-  }, []);
+  }, [id]);
 
-  console.log(listing);
+  // fetch similar listings
+  useEffect(() => {
+    const fetchSimilar = async () => {
+      try {
+        const response = await api.get("/real-estates");
+        const allSimilar = response.data;
+
+        if (listing) {
+          const filteredSimilar = allSimilar.filter(
+            (item) =>
+              item.city.region_id === listing.city.region_id &&
+              item.id !== listing.id
+          );
+          setFilteredRegions(filteredSimilar);
+        }
+      } catch (error) {
+        console.error("Error fetching similar listings:", error);
+      }
+    };
+
+    fetchSimilar();
+  }, [listing, api]);
+
+  // handle delete listing
+  const deleteListing = async (id) => {
+    try {
+      setBaseURL("https://api.real-estate-manager.redberryinternship.ge/api");
+      await api.delete(`/real-estates/${id}`);
+      navigate("/");
+    } catch (error) {
+      console.error("Error fetching cities:", error);
+    }
+  };
 
   if (listing)
     return (
@@ -118,31 +166,83 @@ const Listing = () => {
                     </div>
                   </div>
                 </div>
-                {/* <button className="delete-listing">ლისტინგის წაშლა</button> */}
-                <Button className="delete-listing">ლისტინგის წაშლა</Button>
+                <Button
+                  className="delete-listing"
+                  onClick={() => setOpen(true)}
+                >
+                  ლისტინგის წაშლა
+                </Button>
+                <Modal style={{ borderRadius: 20 }} open={open} footer={false}>
+                  <div
+                    style={{
+                      display: "flex",
+                      gap: 15,
+                      flexDirection: "column",
+                      justifyItems: "center",
+                      alignItems: "center",
+                      paddingTop: 20,
+                    }}
+                  >
+                    <p>გსურთ წაშალოთ ლისტინგი?</p>
+                    <div
+                      style={{
+                        display: "flex",
+                        gap: 15,
+                      }}
+                    >
+                      <Button
+                        className="delete-listing-btn cancel"
+                        onClick={() => setOpen(false)}
+                      >
+                        გაუქმება
+                      </Button>
+                      <Button
+                        className="delete-listing-btn"
+                        onClick={() => deleteListing(id)}
+                      >
+                        დადასტურება
+                      </Button>
+                    </div>
+                  </div>
+                </Modal>
               </div>
             </div>
+
+            {/* carousel */}
+            {filteredRegions.length > 0 && (
+              <div>
+                <p className="slider-title">ბინები მსგავს ლოკაციაზე</p>
+                <Swiper
+                  slidesPerView={4}
+                  loop={true}
+                  navigation={true}
+                  modules={[Pagination, Navigation]}
+                  className="mySwiper"
+                >
+                  {filteredRegions.map((item) => (
+                    <SwiperSlide key={item.id}>
+                      <div>
+                        <EstateCard
+                          address={item.address}
+                          area={item.area}
+                          bedrooms={item.bedrooms}
+                          city={item.city.name}
+                          img={item.image}
+                          price={item.price}
+                          rented={item.is_rental}
+                          zip={item.zip_code}
+                          id={item.id}
+                        />
+                      </div>
+                    </SwiperSlide>
+                  ))}
+                </Swiper>
+              </div>
+            )}
           </div>
         </div>
       </div>
     );
 };
-
-{
-  /* <div className="estate-card-col">
-<div className="estate-card-row no-padding">
-  <img src={bedIcon} />
-  <span>{bedrooms}</span>
-</div>
-<div className="estate-card-row no-padding">
-  <img src={squareMetersIcon} />
-  <span>{area}</span>
-</div>
-<div className="estate-card-row no-padding">
-  <img src={zipIcon} />
-  <span>{zip}</span>
-</div>
-</div> */
-}
 
 export default Listing;

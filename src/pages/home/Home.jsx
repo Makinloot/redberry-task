@@ -2,8 +2,10 @@ import { useEffect, useState } from "react";
 import Categories from "../../components/categories/Categories";
 import { useAppContext } from "../../context/ContextProvider";
 import EstateCard from "../../components/estateCard/EstateCard";
-
+import Filters from "../../components/filters/Filters";
+import { useNavigate } from "react-router-dom";
 const Home = () => {
+  const navigate = useNavigate();
   const { setBaseURL, api, selectedItems, priceRange, areaRange, bedrooms } =
     useAppContext();
   const [listings, setListings] = useState([]);
@@ -13,7 +15,6 @@ const Home = () => {
       try {
         setBaseURL("https://api.real-estate-manager.redberryinternship.ge/api");
         const response = await api.get("/real-estates");
-        console.log(response.data);
         setListings(response.data);
       } catch (error) {
         console.error("Error fetching cities:", error);
@@ -23,13 +24,12 @@ const Home = () => {
     fetchCities();
   }, []);
 
-  console.log(priceRange);
-
   return (
     <div className="Home">
       <div className="container">
         <div className="Home-wrapper">
           <Categories />
+          <Filters />
           <div
             style={{
               paddingTop: 32,

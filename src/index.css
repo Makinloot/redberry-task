@@ -7,6 +7,10 @@
   font-family: "firago-regular";
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   font-family: "firago-regular";
 }

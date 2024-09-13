@@ -9,10 +9,20 @@ const useAppContext = () => {
 const ContextProvider = ({ children }) => {
   const [openModal, setOpenModal] = useState(false);
   // region checkboxes
-  const [selectedItems, setSelectedItems] = useState([]);
-  const [priceRange, setPriceRange] = useState({ from: "", to: "" });
-  const [areaRange, setAreaRange] = useState({ from: "", to: "" });
-  const [bedrooms, setBedrooms] = useState(1);
+  const [selectedItems, setSelectedItems] = useState(
+    JSON.parse(localStorage.getItem("regions")) || []
+  );
+  const [priceRange, setPriceRange] = useState({
+    from: JSON.parse(localStorage.getItem("priceRange"))?.from || "",
+    to: JSON.parse(localStorage.getItem("priceRange"))?.to || "",
+  });
+  const [areaRange, setAreaRange] = useState({
+    from: JSON.parse(localStorage.getItem("areaRange"))?.from || "",
+    to: JSON.parse(localStorage.getItem("areaRange"))?.to || "",
+  });
+  const [bedrooms, setBedrooms] = useState(
+    Number(localStorage.getItem("bedrooms")) || 0
+  );
 
   // authorization for api calls
   const api = axios.create({

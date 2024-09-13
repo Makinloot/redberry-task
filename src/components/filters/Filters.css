@@ -1,0 +1,21 @@
+.filter-container {
+  display: flex;
+  padding: 16px 0;
+  gap: 8px;
+}
+
+.filter-wrapper {
+  font-size: 0.875rem;
+  color: #021526cc;
+  padding: 6px 10px;
+  border: 1px solid #dbdbdb;
+  border-radius: 43px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.filter-wrapper svg {
+  cursor: pointer;
+  font-size: 0.8rem;
+}

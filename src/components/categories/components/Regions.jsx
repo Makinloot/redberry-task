@@ -48,11 +48,13 @@ const Regions = () => {
   }, []);
 
   const handleCheckboxChange = (checkedValue) => {
-    setSelectedItems((prevSelectedItems) =>
-      prevSelectedItems.includes(checkedValue)
+    setSelectedItems((prevSelectedItems) => {
+      const updatedSelectedItems = prevSelectedItems.includes(checkedValue)
         ? prevSelectedItems.filter((item) => item !== checkedValue)
-        : [...prevSelectedItems, checkedValue]
-    );
+        : [...prevSelectedItems, checkedValue];
+      localStorage.setItem("regions", JSON.stringify(updatedSelectedItems));
+      return updatedSelectedItems;
+    });
   };
 
   //
