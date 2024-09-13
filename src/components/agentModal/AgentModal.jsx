@@ -21,6 +21,7 @@ const AgentModal = () => {
       onOk={handleOk}
       onCancel={handleCancel}
       footer={null}
+      closable={false}
     >
       <h2 className="agent-modal-title">აგენტის დამატება</h2>
       <AgentForm />

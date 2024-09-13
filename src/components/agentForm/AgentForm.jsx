@@ -4,7 +4,7 @@ import {
   UploadOutlined,
 } from "@ant-design/icons";
 import "./AgentForm.css";
-import { Form, Input, Button, Row, Col, Upload, Alert } from "antd";
+import { Form, Input, Button, Row, Col, Upload, Alert, message } from "antd";
 import plusCircle from "/plus-circle.png";
 import { useState } from "react";
 import {
@@ -19,8 +19,9 @@ import { useAppContext } from "../../context/ContextProvider";
 const AgentForm = () => {
   const [form] = Form.useForm();
   const [isUploaded, setIsUploaded] = useState(false);
-  const { setBaseURL, api } = useAppContext();
-  const [imgBinary, setImgBinary] = useState(null); // State for binary image
+  const { setBaseURL, api, setOpenModal } = useAppContext();
+  const [imgBinary, setImgBinary] = useState(null);
+  const [messageApi, contextHolder] = message.useMessage();
 
   // validation states
   const [nameValidation, setNameValidation] = useState({
@@ -47,6 +48,20 @@ const AgentForm = () => {
   const [alertVisible, setAlertVisible] = useState(false);
   const [alertMessage, setAlertMessage] = useState("");
 
+  const success = () => {
+    messageApi.open({
+      type: "success",
+      content: "აგენტი წარმატებით დაემატა",
+    });
+  };
+
+  const error = () => {
+    messageApi.open({
+      type: "error",
+      content: "გთხოვთ შეავსოთ ყველა სავალდებულო ველი სწორად",
+    });
+  };
+
   const onFinish = (values) => {
     console.log("Form Submitted:", values);
     setAlertVisible(false);
@@ -70,21 +85,25 @@ const AgentForm = () => {
           );
           const response = await api.post(`/agents`, formData);
           console.log(response.data);
+          success();
+          setTimeout(() => {
+            setOpenModal(false);
+          }, 500);
         } catch (error) {
           console.error("error adding agent:", error);
         }
       };
 
       addAgent();
-    } catch (error) {
-      console.log("ERROR ADDING AGENT: ", error);
+    } catch (err) {
+      console.log("ERROR ADDING AGENT: ", err);
     }
   };
 
   const onFinishFailed = (errorInfo) => {
     console.log("Failed:", errorInfo);
     setAlertMessage("Please fill out all required fields correctly!");
-    setAlertVisible(true);
+    error();
   };
 
   return (
@@ -95,6 +114,8 @@ const AgentForm = () => {
       onFinishFailed={onFinishFailed}
       autoComplete="off"
     >
+      {contextHolder}
+
       {alertVisible && (
         <Alert
           message={alertMessage}
@@ -246,7 +267,11 @@ const AgentForm = () => {
       <Form.Item className="form-buttons">
         <Row justify={"end"} gutter={15}>
           <Col>
-            <button type="button" className="cancel-agent">
+            <button
+              type="button"
+              className="cancel-agent"
+              onClick={() => setOpenModal(false)}
+            >
               გაუქმება
             </button>
           </Col>

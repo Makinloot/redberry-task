@@ -208,6 +208,11 @@ const Listing = () => {
             </div>
 
             {/* carousel */}
+            {filteredRegions.length < 1 && (
+              <p className="slider-title">
+                ბინები მსგავს ლოკაციაზე ვერ მოიძებნა
+              </p>
+            )}
             {filteredRegions.length > 0 && (
               <div>
                 <p className="slider-title">ბინები მსგავს ლოკაციაზე</p>
