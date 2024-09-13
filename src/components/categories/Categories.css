@@ -154,3 +154,24 @@
   background-color: #808a93;
   color: #fff;
 }
+
+.bedroom-size::-webkit-outer-spin-button,
+.bedroom-size::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.bedroom-size {
+  -moz-appearance: textfield;
+}
+
+.bedroom-size::-webkit-outer-spin-button,
+.bedroom-size::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+.bedroom-size {
+  -moz-appearance: textfield;
+}
