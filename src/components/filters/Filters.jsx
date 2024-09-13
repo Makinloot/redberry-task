@@ -5,7 +5,16 @@ import { useAppContext } from "../../context/ContextProvider";
 import m2Icon from "/m2-icon.png";
 
 const Filters = () => {
-  const { selectedItems, priceRange, areaRange, bedrooms } = useAppContext();
+  const {
+    selectedItems,
+    setSelectedItems,
+    priceRange,
+    setPriceRange,
+    areaRange,
+    setAreaRange,
+    bedrooms,
+    setBedrooms,
+  } = useAppContext();
 
   // display price filters as needed
   const handlePriceFilter = () => {
@@ -36,6 +45,20 @@ const Filters = () => {
     }
   };
 
+  // delete every filter
+  const deleteEveryFilter = () => {
+    setSelectedItems([]);
+    setPriceRange({
+      from: "",
+      to: "",
+    });
+    setAreaRange({
+      from: "",
+      to: "",
+    });
+    setBedrooms(0);
+  };
+
   return (
     <div className="filter-container">
       {selectedItems.map((item) => (
@@ -44,6 +67,19 @@ const Filters = () => {
       {handlePriceFilter()}
       {handleAreaFilter()}
       {bedrooms > 0 && <FilterWrapper bedrooms value={bedrooms} />}
+      {selectedItems.length > 0 ||
+      priceRange.from !== "" ||
+      priceRange.to !== "" ||
+      areaRange.from !== "" ||
+      areaRange.to !== "" ||
+      bedrooms !== 0 ? (
+        <span
+          onClick={deleteEveryFilter}
+          style={{ fontSize: 14, fontWeight: 500, cursor: "pointer" }}
+        >
+          გასუფთავება
+        </span>
+      ) : null}
     </div>
   );
 };

@@ -6,10 +6,18 @@ input {
   padding-bottom: 4px !important;
 }
 
+.agent-input {
+  margin-bottom: 5px;
+}
+
 .agent-form-item label,
 .upload-label {
   font-family: "firago-bold";
   font-size: 0.875rem;
+}
+
+.agent-form-item .ant-form-item-required::before {
+  content: none !important;
 }
 
 .input-field-msg-wrapper {
@@ -80,6 +88,22 @@ input {
   align-items: center;
 }
 
-.agent-form-item .ant-form-item-explain-error {
-  display: none !important;
+.ant-form-item-explain-success {
+  color: green;
+}
+
+.ant-form-item-extra {
+  position: absolute !important;
+  bottom: 5px !important;
+  color: #000 !important;
+}
+
+.upload-input-wrapper {
+  position: relative;
+}
+
+.upload-input-wrapper .ant-form-item-explain {
+  /* display: none; */
+  position: absolute;
+  bottom: -10px;
 }
