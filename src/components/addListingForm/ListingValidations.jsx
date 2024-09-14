@@ -290,3 +290,18 @@ export const handleImageUploadChange = (
   }
   setIsUploaded(fileList.length > 0);
 };
+
+export const handleAgentChange = (e, setValidation) => {
+  const value = e;
+
+  if (!value) {
+    setValidation({
+      validateStatus: "error",
+      help: (
+        <div>
+          <CheckOutlined /> <span>სავალდებულო</span>
+        </div>
+      ),
+    });
+  }
+};

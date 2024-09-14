@@ -1,9 +1,20 @@
-import { Button, Col, Form, Input, Radio, Row, Select, Upload } from "antd";
+import {
+  Button,
+  Col,
+  Form,
+  Input,
+  message,
+  Radio,
+  Row,
+  Select,
+  Upload,
+} from "antd";
 import "./AddListingForm.css";
 import { useEffect, useState } from "react";
 import { CheckOutlined } from "@ant-design/icons";
 import {
   handleAddressChange,
+  handleAgentChange,
   handleAreaValidation,
   handleBedroomsChange,
   handleDescriptionValidation,
@@ -15,6 +26,7 @@ import {
 import { useAppContext } from "../../context/ContextProvider";
 import TextArea from "antd/es/input/TextArea";
 import plusCircle from "/plus-circle.png";
+import { useNavigate } from "react-router-dom";
 const AddListingForm = () => {
   const [form] = Form.useForm();
   const [regions, setRegions] = useState([]);
@@ -23,6 +35,9 @@ const AddListingForm = () => {
   const [selectedRegionId, setSelectedRegionId] = useState("");
   const [isUploaded, setIsUploaded] = useState(false);
   const [imgBinary, setImgBinary] = useState(null);
+  const [agents, setAgents] = useState([]);
+  const [messageApi, contextHolder] = message.useMessage();
+  const navigate = useNavigate();
 
   // validation states
   const [addressValidation, setAddressValidation] = useState({
@@ -62,6 +77,24 @@ const AddListingForm = () => {
     validateStatus: "",
     help: "",
   });
+  const [agentValidation, setAgentValidation] = useState({
+    validateStatus: "",
+    help: "",
+  });
+
+  const success = () => {
+    messageApi.open({
+      type: "success",
+      content: "აგენტი წარმატებით დაემატა",
+    });
+  };
+
+  const error = () => {
+    messageApi.open({
+      type: "error",
+      content: "გთხოვთ შეავსოთ ყველა სავალდებულო ველი სწორად",
+    });
+  };
 
   const onFinish = (values) => {
     console.log(values);
@@ -79,6 +112,7 @@ const AddListingForm = () => {
         formData.append("area", values.area);
         formData.append("bedrooms", values.bedrooms);
         formData.append("is_rental", values.radioGroup === 1 ? 0 : 1);
+        formData.append("agent_id", values.agent);
         if (imgBinary) {
           formData.append("image", imgBinary, "avatar.png");
         }
@@ -92,7 +126,7 @@ const AddListingForm = () => {
           console.log(response.data);
           success();
           setTimeout(() => {
-            setOpenModal(false);
+            navigate("/");
           }, 500);
         } catch (error) {
           console.error("error adding listing:", error);
@@ -106,18 +140,23 @@ const AddListingForm = () => {
   };
 
   const onFinishFailed = (errorInfo) => {
-    console.log(errorInfo);
+    console.log("Failed:", errorInfo);
+    setAlertMessage("Please fill out all required fields correctly!");
+    error();
   };
 
   // fetch regions & cities
   useEffect(() => {
-    const fetchCities = async () => {
+    const fetchData = async () => {
       try {
         setBaseURL("https://api.real-estate-manager.redberryinternship.ge/api");
         const response = await api.get("/regions");
         const responseCities = await api.get("/cities");
+        const agentsResponse = await api.get("/agents");
         setRegions(response.data);
         setCities(responseCities.data);
+        setAgents(agentsResponse.data);
+        console.log(agentsResponse.data);
         // console.log(response.data);
         // console.log(responseCities.data);
       } catch (error) {
@@ -125,7 +164,7 @@ const AddListingForm = () => {
       }
     };
 
-    fetchCities();
+    fetchData();
   }, []);
 
   return (
@@ -137,12 +176,13 @@ const AddListingForm = () => {
       autoComplete="off"
       className="add-listing-form"
     >
+      {contextHolder}
       <p className="add-listing-form-title" style={{ marginBottom: 8 }}>
         გარიგების ტიპი
       </p>
       <Form.Item
-        name="radioGroup" // Name for the radio value
-        initialValue={1} // Set initial checked value
+        name="radioGroup"
+        initialValue={1}
         style={{ marginBottom: 80 }}
       >
         <Radio.Group style={{ display: "flex", gap: 64 }}>
@@ -416,6 +456,38 @@ const AddListingForm = () => {
                 />
               )}
             </Upload>
+          </Form.Item>
+        </Col>
+      </Row>
+
+      <p
+        className="add-listing-form-title"
+        style={{ marginBottom: 8, marginTop: 80 }}
+      >
+        აგენტი
+      </p>
+      <Row>
+        <Col span={12}>
+          <Form.Item
+            className="agent-form-item"
+            name="agent"
+            label={"აირჩიე"}
+            validateStatus={agentValidation.validateStatus}
+            help={agentValidation.help}
+            rules={[{ required: true }]}
+          >
+            <Select
+              className="agent-input select-input"
+              onChange={(value) => {
+                handleAgentChange(value, setAgentValidation);
+              }}
+            >
+              {agents.map((item, i) => (
+                <Select.Option value={item.id} key={i}>
+                  {item.name}
+                </Select.Option>
+              ))}
+            </Select>
           </Form.Item>
         </Col>
       </Row>
