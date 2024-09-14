@@ -1,6 +1,6 @@
 import { CheckOutlined } from "@ant-design/icons";
 import "./AgentForm.css";
-import { Form, Input, Button, Row, Col, Upload, Alert, message } from "antd";
+import { Form, Input, Button, Row, Col, Upload, message } from "antd";
 import plusCircle from "/plus-circle.png";
 import { useState } from "react";
 import { useAppContext } from "../../context/ContextProvider";
@@ -40,9 +40,6 @@ const AgentForm = () => {
     help: "",
   });
 
-  const [alertVisible, setAlertVisible] = useState(false);
-  const [alertMessage, setAlertMessage] = useState("");
-
   const success = () => {
     messageApi.open({
       type: "success",
@@ -58,9 +55,6 @@ const AgentForm = () => {
   };
 
   const onFinish = (values) => {
-    console.log("Form Submitted:", values);
-    setAlertVisible(false);
-
     try {
       // add agent
       const addAgent = async () => {
@@ -70,16 +64,14 @@ const AgentForm = () => {
         formData.append("email", values.email);
         formData.append("phone", values.phone);
         if (imgBinary) {
-          formData.append("avatar", imgBinary, "avatar.png"); // Ensure correct filename and MIME type
+          formData.append("avatar", imgBinary, "avatar.png");
         }
 
-        console.log("AGENT VALUES", formData);
         try {
           setBaseURL(
             "https://api.real-estate-manager.redberryinternship.ge/api"
           );
-          const response = await api.post(`/agents`, formData);
-          console.log(response.data);
+          await api.post(`/agents`, formData);
           success();
           setTimeout(() => {
             setOpenModal(false);
@@ -95,9 +87,52 @@ const AgentForm = () => {
     }
   };
 
-  const onFinishFailed = (errorInfo) => {
-    console.log("Failed:", errorInfo);
-    error();
+  const onFinishFailed = ({ errorFields }) => {
+    error(); // Show the general error message
+
+    // Loop over the errorFields to trigger validation for each field with errors
+    errorFields.forEach(({ name }) => {
+      if (name[0] === "name") {
+        handleStringValidations(
+          { target: { value: form.getFieldValue("name") } },
+          setNameValidation
+        );
+      }
+
+      if (name[0] === "surname") {
+        handleStringValidations(
+          { target: { value: form.getFieldValue("surname") } },
+          setLastNameValidation
+        );
+      }
+
+      if (name[0] === "email") {
+        handleEmailValidations(
+          { target: { value: form.getFieldValue("email") } },
+          setEmailValidation
+        );
+      }
+
+      if (name[0] === "phone") {
+        handleNumberValidations(
+          { target: { value: form.getFieldValue("phone") } },
+          setPhoneNumberValidation,
+          "phone"
+        );
+      }
+    });
+
+    // Check if the avatar is uploaded
+    if (!isUploaded) {
+      setImageValidation({
+        validateStatus: "error",
+        help: (
+          <div>
+            <CheckOutlined /> <span>გთხოვთ ატვირთოთ ფოტო</span>
+          </div>
+        ),
+      });
+    }
   };
 
   return (
@@ -109,16 +144,6 @@ const AgentForm = () => {
       autoComplete="off"
     >
       {contextHolder}
-
-      {alertVisible && (
-        <Alert
-          message={alertMessage}
-          type="error"
-          showIcon
-          closable
-          onClose={() => setAlertVisible(false)}
-        />
-      )}
       <Row gutter={31}>
         <Col span={12}>
           <Form.Item

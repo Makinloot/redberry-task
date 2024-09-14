@@ -93,8 +93,6 @@ const AddListingForm = () => {
   };
 
   const onFinish = (values) => {
-    console.log(values);
-    console.log(imgBinary);
     try {
       // add agent
       const addListing = async () => {
@@ -113,13 +111,11 @@ const AddListingForm = () => {
           formData.append("image", imgBinary, "avatar.png");
         }
 
-        console.log("LISTING VALUES", formData);
         try {
           setBaseURL(
             "https://api.real-estate-manager.redberryinternship.ge/api"
           );
-          const response = await api.post(`/real-estates`, formData);
-          console.log(response.data);
+          await api.post(`/real-estates`, formData);
           success();
           setTimeout(() => {
             navigate("/");
@@ -135,9 +131,86 @@ const AddListingForm = () => {
     }
   };
 
-  const onFinishFailed = (errorInfo) => {
-    console.log("Failed:", errorInfo);
-    error();
+  const onFinishFailed = ({ errorFields }) => {
+    console.log("Failed:", errorFields);
+    error(); // Show the general error message
+
+    // Loop over the errorFields to trigger validation for each field with errors
+    errorFields.forEach(({ name }) => {
+      if (name[0] === "address") {
+        handleStringValidations(
+          { target: { value: form.getFieldValue("address") } },
+          setAddressValidation
+        );
+      }
+
+      if (name[0] === "zipCode") {
+        handleNumberValidations(
+          { target: { value: form.getFieldValue("zipCode") } },
+          setZipCodeValidation,
+          "number"
+        );
+      }
+
+      if (name[0] === "region") {
+        handleSelectValidations(
+          form.getFieldValue("region"),
+          setRegionValidation
+        );
+      }
+
+      if (name[0] === "agent") {
+        handleSelectValidations(
+          form.getFieldValue("agent"),
+          setAgentValidation
+        );
+      }
+
+      if (name[0] === "city") {
+        handleSelectValidations(form.getFieldValue("city"), setCityValidation);
+      }
+
+      if (name[0] === "price") {
+        handleNumberValidations(
+          { target: { value: form.getFieldValue("price") } },
+          setPriceValidation,
+          "number"
+        );
+      }
+
+      if (name[0] === "area") {
+        handleNumberValidations(
+          { target: { value: form.getFieldValue("area") } },
+          setAreaValidation,
+          "number"
+        );
+      }
+
+      if (name[0] === "bedrooms") {
+        handleNumberValidations(
+          { target: { value: form.getFieldValue("bedrooms") } },
+          setBedroomsValidation,
+          "number"
+        );
+      }
+
+      if (name[0] === "description") {
+        // Manually trigger validation for TextArea
+        handleTextValidations("", setDescriptionValidation);
+      }
+
+      // Check if the avatar is uploaded
+      if (!isUploaded) {
+        setImageValidation({
+          validateStatus: "error",
+          help: (
+            <div>
+              <CheckOutlined /> <span>გთხოვთ ატვირთოთ ფოტო</span>
+            </div>
+          ),
+        });
+      }
+    });
   };
 
   // fetch regions & cities
