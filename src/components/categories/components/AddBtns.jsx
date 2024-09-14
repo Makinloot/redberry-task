@@ -2,7 +2,6 @@ import { PlusOutlined } from "@ant-design/icons";
 import { Button } from "antd";
 import React from "react";
 import { useAppContext } from "../../../context/ContextProvider";
-import AgentModal from "../../agentModal/AgentModal";
 import { useNavigate } from "react-router-dom";
 
 const AddBtns = () => {
@@ -24,7 +23,6 @@ const AddBtns = () => {
       >
         აგენტის დამატება
       </Button>
-      <AgentModal />
     </div>
   );
 };

@@ -31,7 +31,7 @@ const AddListingForm = () => {
   const [form] = Form.useForm();
   const [regions, setRegions] = useState([]);
   const [cities, setCities] = useState([]);
-  const { setBaseURL, api } = useAppContext();
+  const { setBaseURL, api, setOpenModal, openModal } = useAppContext();
   const [selectedRegionId, setSelectedRegionId] = useState("");
   const [isUploaded, setIsUploaded] = useState(false);
   const [imgBinary, setImgBinary] = useState(null);
@@ -152,13 +152,8 @@ const AddListingForm = () => {
         setBaseURL("https://api.real-estate-manager.redberryinternship.ge/api");
         const response = await api.get("/regions");
         const responseCities = await api.get("/cities");
-        const agentsResponse = await api.get("/agents");
         setRegions(response.data);
         setCities(responseCities.data);
-        setAgents(agentsResponse.data);
-        console.log(agentsResponse.data);
-        // console.log(response.data);
-        // console.log(responseCities.data);
       } catch (error) {
         console.error("Error fetching cities:", error);
       }
@@ -166,6 +161,21 @@ const AddListingForm = () => {
 
     fetchData();
   }, []);
+
+  // fetch agents
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        setBaseURL("https://api.real-estate-manager.redberryinternship.ge/api");
+        const agentsResponse = await api.get("/agents");
+        setAgents(agentsResponse.data);
+      } catch (error) {
+        console.error("Error fetching cities:", error);
+      }
+    };
+
+    fetchData();
+  }, [openModal]);
 
   return (
     <Form
@@ -479,11 +489,36 @@ const AddListingForm = () => {
             <Select
               className="agent-input select-input"
               onChange={(value) => {
+                if (value === "logRed") {
+                  console.log("red");
+                  return;
+                }
                 handleAgentChange(value, setAgentValidation);
               }}
             >
+              {/* First option as a button to log "red" */}
+              <Select.Option
+                value="logRed"
+                key="logRed"
+                className="select-options btn"
+              >
+                <button
+                  type="button"
+                  onClick={() => setOpenModal(true)}
+                  className="inside-select-btn"
+                >
+                  <img src={plusCircle} />
+                  <span>დაამატე აგენტი</span>
+                </button>
+              </Select.Option>
+
+              {/* Render the rest of the agent options with border bottom */}
               {agents.map((item, i) => (
-                <Select.Option value={item.id} key={i}>
+                <Select.Option
+                  value={item.id}
+                  key={i}
+                  className="select-options"
+                >
                   {item.name}
                 </Select.Option>
               ))}

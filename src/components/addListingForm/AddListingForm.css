@@ -11,3 +11,33 @@
 .select-input {
   height: 43px;
 }
+
+.select-options {
+  padding: 10px 12.5px !important;
+  border-top: 1px solid;
+  border-radius: 0 !important;
+  position: relative;
+}
+
+.select-options.btn {
+  padding: 22px 12.5px !important;
+}
+
+.ant-select-dropdown {
+  padding: 0 !important;
+}
+
+.inside-select-btn {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  align-items: center;
+  padding-left: 10px;
+  gap: 8px;
+}
