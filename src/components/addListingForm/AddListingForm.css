@@ -1,0 +1,13 @@
+.add-listing-form {
+  width: 790px;
+  margin: 0 auto;
+}
+
+.add-listing-form-title {
+  font-size: 1rem;
+  margin-bottom: 22px;
+}
+
+.select-input {
+  height: 43px;
+}

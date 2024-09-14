@@ -57,6 +57,10 @@ const Filters = () => {
       to: "",
     });
     setBedrooms(0);
+    localStorage.removeItem("regions");
+    localStorage.removeItem("priceRange");
+    localStorage.removeItem("areaRange");
+    localStorage.removeItem("bedrooms");
   };
 
   return (

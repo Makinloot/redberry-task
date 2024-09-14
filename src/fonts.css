@@ -1,19 +1,19 @@
 @font-face {
-    font-family: 'firago-bold';
-    src: url('./assets/fonts/FiraGO-Bold.woff2') format('woff2'),
-        url('./assets/fonts/FiraGO-Bold.woff') format('woff'),
-        url('./assets/fonts/FiraGO-Bold.ttf') format('truetype');
-    font-weight: bold;
-    font-style: normal;
-    font-display: swap;
+  font-family: "firago-bold";
+  src: url("./assets/fonts/FiraGO-Bold.woff2") format("woff2"),
+    url("./assets/fonts/FiraGO-Bold.woff") format("woff"),
+    url("./assets/fonts/FiraGO-Bold.ttf") format("truetype");
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
 }
 
 @font-face {
-    font-family: 'firago-regular';
-    src: url('./assets/fonts/FiraGO-Regular.woff2') format('woff2'),
-        url('./assets/fonts/FiraGO-Regular.woff') format('woff'),
-        url('./assets/fonts/FiraGO-Regular.ttf') format('truetype');
-    font-weight: normal;
-    font-style: normal;
-    font-display: swap;
+  font-family: "firago-regular";
+  src: url("./assets/fonts/FiraGO-Regular.woff2") format("woff2"),
+    url("./assets/fonts/FiraGO-Regular.woff") format("woff"),
+    url("./assets/fonts/FiraGO-Regular.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
 }
