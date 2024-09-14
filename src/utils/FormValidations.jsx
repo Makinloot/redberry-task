@@ -1,6 +1,6 @@
 import { CheckOutlined } from "@ant-design/icons";
 
-export const handleAddressChange = (e, setValidation) => {
+export const handleStringValidations = (e, setValidation) => {
   const value = e.target.value;
 
   if (!value) {
@@ -33,9 +33,9 @@ export const handleAddressChange = (e, setValidation) => {
   }
 };
 
-export const handleZipCodeChange = (e, setValidation) => {
+export const handleEmailValidations = (e, setValidation) => {
   const value = e.target.value;
-  const pattern = /^[0-9]*$/;
+  const emailPattern = /^[a-zA-Z0-9._%+-]+@redberry\.ge$/;
 
   if (!value) {
     setValidation({
@@ -46,7 +46,52 @@ export const handleZipCodeChange = (e, setValidation) => {
         </div>
       ),
     });
-  } else if (!pattern.test(value)) {
+  } else if (!emailPattern.test(value)) {
+    setValidation({
+      validateStatus: "error",
+      help: (
+        <div>
+          <CheckOutlined /> <span>უნდა მთავრდებოდეს @redberry.ge-თ</span>
+        </div>
+      ),
+    });
+  } else {
+    setValidation({
+      validateStatus: "success",
+      help: (
+        <div>
+          <CheckOutlined /> <span>უნდა მთავრდებოდეს @redberry.ge-თ</span>
+        </div>
+      ),
+    });
+  }
+};
+
+export const handleNumberValidations = (e, setValidation, pattern) => {
+  const value = e.target.value;
+  const phonePattern = /^5\d{8}$/;
+  const onlyNumberPattern = /^[0-9]*$/;
+
+  if (!value) {
+    setValidation({
+      validateStatus: "error",
+      help: (
+        <div>
+          <CheckOutlined /> <span>სავალდებულო</span>
+        </div>
+      ),
+    });
+  } else if (pattern === "phone" && !phonePattern.test(value)) {
+    setValidation({
+      validateStatus: "error",
+      help: (
+        <div>
+          <CheckOutlined />{" "}
+          <span>ნუმერული სიმბოლოები და ფორმატის 5XXXXXXXX</span>
+        </div>
+      ),
+    });
+  } else if (pattern === "number" && !onlyNumberPattern.test(value)) {
     setValidation({
       validateStatus: "error",
       help: (
@@ -60,14 +105,19 @@ export const handleZipCodeChange = (e, setValidation) => {
       validateStatus: "success",
       help: (
         <div>
-          <CheckOutlined /> <span>ნუმერული სიმბოლოები</span>
+          <CheckOutlined />{" "}
+          <span>
+            {pattern === "number"
+              ? "ნუმერული სიმბოლოები"
+              : "ნუმერული სიმბოლოები და ფორმატის 5XXXXXXXX"}
+          </span>
         </div>
       ),
     });
   }
 };
 
-export const handleRegionChange = (e, setValidation) => {
+export const handleSelectValidations = (e, setValidation) => {
   const value = e;
 
   if (!value) {
@@ -79,147 +129,12 @@ export const handleRegionChange = (e, setValidation) => {
         </div>
       ),
     });
-  } else {
-    setValidation({
-      validateStatus: "success",
-      help: (
-        <div>
-          <CheckOutlined /> <span>რეგიონი</span>
-        </div>
-      ),
-    });
   }
 };
 
-export const handleCityChange = (e, setValidation) => {
-  const value = e;
-
-  if (!value) {
-    setValidation({
-      validateStatus: "error",
-      help: (
-        <div>
-          <CheckOutlined /> <span>სავალდებულო</span>
-        </div>
-      ),
-    });
-  } else {
-    setValidation({
-      validateStatus: "success",
-      help: (
-        <div>
-          <CheckOutlined /> <span>ქალაქი</span>
-        </div>
-      ),
-    });
-  }
-};
-
-export const handlePriceValidation = (e, setValidation) => {
-  const value = e.target.value;
-  const pattern = /^[0-9]*$/;
-
-  if (!value) {
-    setValidation({
-      validateStatus: "error",
-      help: (
-        <div>
-          <CheckOutlined /> <span>სავალდებულო</span>
-        </div>
-      ),
-    });
-  } else if (!pattern.test(value)) {
-    setValidation({
-      validateStatus: "error",
-      help: (
-        <div>
-          <CheckOutlined /> <span>ნუმერული სიმბოლოები</span>
-        </div>
-      ),
-    });
-  } else {
-    setValidation({
-      validateStatus: "success",
-      help: (
-        <div>
-          <CheckOutlined /> <span>ნუმერული სიმბოლოები</span>
-        </div>
-      ),
-    });
-  }
-};
-
-export const handleAreaValidation = (e, setValidation) => {
-  const value = e.target.value;
-  const pattern = /^[0-9]*$/;
-
-  if (!value) {
-    setValidation({
-      validateStatus: "error",
-      help: (
-        <div>
-          <CheckOutlined /> <span>სავალდებულო</span>
-        </div>
-      ),
-    });
-  } else if (!pattern.test(value)) {
-    setValidation({
-      validateStatus: "error",
-      help: (
-        <div>
-          <CheckOutlined /> <span>ნუმერული სიმბოლოები</span>
-        </div>
-      ),
-    });
-  } else {
-    setValidation({
-      validateStatus: "success",
-      help: (
-        <div>
-          <CheckOutlined /> <span>ნუმერული სიმბოლოები</span>
-        </div>
-      ),
-    });
-  }
-};
-
-export const handleBedroomsChange = (e, setValidation) => {
-  const value = e.target.value;
-  const pattern = /^[0-9]*$/; // Only allows whole numbers
-
-  if (!value) {
-    setValidation({
-      validateStatus: "error",
-      help: (
-        <div>
-          <CheckOutlined /> <span>სავალდებულო</span>
-        </div>
-      ),
-    });
-  } else if (!pattern.test(value)) {
-    setValidation({
-      validateStatus: "error",
-      help: (
-        <div>
-          <CheckOutlined /> <span>მხოლოდ ნუმერული და მთელი რიცხვები</span>
-        </div>
-      ),
-    });
-  } else {
-    setValidation({
-      validateStatus: "success",
-      help: (
-        <div>
-          <CheckOutlined /> <span>ნუმერული სიმბოლოები</span>
-        </div>
-      ),
-    });
-  }
-};
-
-export const handleDescriptionValidation = (e, setValidation) => {
+export const handleTextValidations = (e, setValidation) => {
   const value = e.trim();
-  const wordCount = value.split(/\s+/).length; // Split by spaces and count words
+  const wordCount = value.split(/\s+/).length;
 
   if (!value) {
     setValidation({
@@ -251,7 +166,8 @@ export const handleDescriptionValidation = (e, setValidation) => {
   }
 };
 
-export const handleImageUploadChange = (
+// handle image validations and also convert image to binary string
+export const handleImageValidations = (
   fileList,
   setValidation,
   setIsUploaded,
@@ -289,19 +205,4 @@ export const handleImageUploadChange = (
     }
   }
   setIsUploaded(fileList.length > 0);
-};
-
-export const handleAgentChange = (e, setValidation) => {
-  const value = e;
-
-  if (!value) {
-    setValidation({
-      validateStatus: "error",
-      help: (
-        <div>
-          <CheckOutlined /> <span>სავალდებულო</span>
-        </div>
-      ),
-    });
-  }
 };

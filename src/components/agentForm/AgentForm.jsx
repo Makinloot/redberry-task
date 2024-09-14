@@ -1,20 +1,15 @@
-import {
-  CheckOutlined,
-  CloseOutlined,
-  UploadOutlined,
-} from "@ant-design/icons";
+import { CheckOutlined } from "@ant-design/icons";
 import "./AgentForm.css";
 import { Form, Input, Button, Row, Col, Upload, Alert, message } from "antd";
 import plusCircle from "/plus-circle.png";
 import { useState } from "react";
-import {
-  handleNameChange,
-  handleLastNameChange,
-  handleEmailChange,
-  handlePhoneNumberChange,
-  handleImageUploadChange,
-} from "./validations";
 import { useAppContext } from "../../context/ContextProvider";
+import {
+  handleEmailValidations,
+  handleImageValidations,
+  handleNumberValidations,
+  handleStringValidations,
+} from "../../utils/FormValidations";
 
 const AgentForm = () => {
   const [form] = Form.useForm();
@@ -102,7 +97,6 @@ const AgentForm = () => {
 
   const onFinishFailed = (errorInfo) => {
     console.log("Failed:", errorInfo);
-    setAlertMessage("Please fill out all required fields correctly!");
     error();
   };
 
@@ -145,7 +139,7 @@ const AgentForm = () => {
             <Input
               className="agent-input"
               name="name"
-              onChange={(e) => handleNameChange(e, setNameValidation)}
+              onChange={(e) => handleStringValidations(e, setNameValidation)}
             />
           </Form.Item>
         </Col>
@@ -168,7 +162,9 @@ const AgentForm = () => {
             <Input
               className="agent-input"
               name="surname"
-              onChange={(e) => handleLastNameChange(e, setLastNameValidation)}
+              onChange={(e) =>
+                handleStringValidations(e, setLastNameValidation)
+              }
             />
           </Form.Item>
         </Col>
@@ -198,7 +194,7 @@ const AgentForm = () => {
             <Input
               className="agent-input"
               name="email"
-              onChange={(e) => handleEmailChange(e, setEmailValidation)}
+              onChange={(e) => handleEmailValidations(e, setEmailValidation)}
             />
           </Form.Item>
         </Col>
@@ -227,7 +223,7 @@ const AgentForm = () => {
               className="agent-input"
               name="phone"
               onChange={(e) =>
-                handlePhoneNumberChange(e, setPhoneNumberValidation)
+                handleNumberValidations(e, setPhoneNumberValidation, "phone")
               }
             />
           </Form.Item>
@@ -247,7 +243,7 @@ const AgentForm = () => {
           beforeUpload={() => false}
           maxCount={1}
           onChange={(e) =>
-            handleImageUploadChange(
+            handleImageValidations(
               e.fileList,
               setImageValidation,
               setIsUploaded,

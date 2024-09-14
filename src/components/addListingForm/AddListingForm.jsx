@@ -12,21 +12,17 @@ import {
 import "./AddListingForm.css";
 import { useEffect, useState } from "react";
 import { CheckOutlined } from "@ant-design/icons";
-import {
-  handleAddressChange,
-  handleAgentChange,
-  handleAreaValidation,
-  handleBedroomsChange,
-  handleDescriptionValidation,
-  handleImageUploadChange,
-  handlePriceValidation,
-  handleRegionChange,
-  handleZipCodeChange,
-} from "./ListingValidations";
 import { useAppContext } from "../../context/ContextProvider";
 import TextArea from "antd/es/input/TextArea";
 import plusCircle from "/plus-circle.png";
 import { useNavigate } from "react-router-dom";
+import {
+  handleImageValidations,
+  handleNumberValidations,
+  handleSelectValidations,
+  handleStringValidations,
+  handleTextValidations,
+} from "../../utils/FormValidations";
 const AddListingForm = () => {
   const [form] = Form.useForm();
   const [regions, setRegions] = useState([]);
@@ -85,7 +81,7 @@ const AddListingForm = () => {
   const success = () => {
     messageApi.open({
       type: "success",
-      content: "აგენტი წარმატებით დაემატა",
+      content: "ლისტინგი წარმატებით დაემატა",
     });
   };
 
@@ -141,7 +137,6 @@ const AddListingForm = () => {
 
   const onFinishFailed = (errorInfo) => {
     console.log("Failed:", errorInfo);
-    setAlertMessage("Please fill out all required fields correctly!");
     error();
   };
 
@@ -222,7 +217,7 @@ const AddListingForm = () => {
             <Input
               className="agent-input"
               name="address"
-              onChange={(e) => handleAddressChange(e, setAddressValidation)}
+              onChange={(e) => handleStringValidations(e, setAddressValidation)}
             />
           </Form.Item>
         </Col>
@@ -250,7 +245,9 @@ const AddListingForm = () => {
             <Input
               className="agent-input"
               name="zipCpde"
-              onChange={(e) => handleZipCodeChange(e, setZipCodeValidation)}
+              onChange={(e) =>
+                handleNumberValidations(e, setZipCodeValidation, "number")
+              }
             />
           </Form.Item>
         </Col>
@@ -268,7 +265,7 @@ const AddListingForm = () => {
             <Select
               className="agent-input select-input"
               onChange={(value) => {
-                handleRegionChange(value, setRegionValidation);
+                handleSelectValidations(value, setRegionValidation);
                 setSelectedRegionId(value);
               }}
             >
@@ -292,7 +289,9 @@ const AddListingForm = () => {
             <Select
               disabled={!selectedRegionId}
               className="agent-input select-input"
-              onChange={(value) => handleRegionChange(value, setCityValidation)}
+              onChange={(value) =>
+                handleSelectValidations(value, setCityValidation)
+              }
             >
               {cities
                 .filter((item) => item.region_id === selectedRegionId)
@@ -318,7 +317,7 @@ const AddListingForm = () => {
             extra={
               priceValidation.validateStatus ? null : (
                 <span>
-                  <CheckOutlined /> მხოლოდ რიცხვები
+                  <CheckOutlined /> ნუმერული სიმბოლოები
                 </span>
               )
             }
@@ -327,7 +326,9 @@ const AddListingForm = () => {
             <Input
               className="agent-input"
               name="price"
-              onChange={(e) => handlePriceValidation(e, setPriceValidation)}
+              onChange={(e) =>
+                handleNumberValidations(e, setPriceValidation, "number")
+              }
             />
           </Form.Item>
         </Col>
@@ -341,7 +342,7 @@ const AddListingForm = () => {
             extra={
               areaValidation.validateStatus ? null : (
                 <span>
-                  <CheckOutlined /> მხოლოდ რიცხვები
+                  <CheckOutlined /> ნუმერული სიმბოლოები
                 </span>
               )
             }
@@ -350,7 +351,9 @@ const AddListingForm = () => {
             <Input
               className="agent-input"
               name="area"
-              onChange={(e) => handleAreaValidation(e, setAreaValidation)}
+              onChange={(e) =>
+                handleNumberValidations(e, setAreaValidation, "number")
+              }
             />
           </Form.Item>
         </Col>
@@ -364,7 +367,7 @@ const AddListingForm = () => {
             extra={
               bedroomsValidation.validateStatus ? null : (
                 <span>
-                  <CheckOutlined /> მხოლოდ რიცხვები
+                  <CheckOutlined /> ნუმერული სიმბოლოები
                 </span>
               )
             }
@@ -374,14 +377,16 @@ const AddListingForm = () => {
                 validator: (_, value) =>
                   value && Number.isInteger(Number(value))
                     ? Promise.resolve()
-                    : Promise.reject(new Error("მხოლოდ მთელი რიცხვები")),
+                    : Promise.reject(new Error("ნუმერული სიმბოლოები")),
               },
             ]}
           >
             <Input
               className="agent-input"
               name="bedrooms"
-              onChange={(e) => handleBedroomsChange(e, setBedroomsValidation)}
+              onChange={(e) =>
+                handleNumberValidations(e, setBedroomsValidation, "number")
+              }
             />
           </Form.Item>
         </Col>
@@ -407,10 +412,7 @@ const AddListingForm = () => {
               rows={6}
               style={{ resize: "none" }}
               onChange={(e) =>
-                handleDescriptionValidation(
-                  e.target.value,
-                  setDescriptionValidation
-                )
+                handleTextValidations(e.target.value, setDescriptionValidation)
               }
               rules={[
                 { required: true, message: "სავალდებულო ველია" },
@@ -447,7 +449,7 @@ const AddListingForm = () => {
               beforeUpload={() => false}
               maxCount={1}
               onChange={(e) =>
-                handleImageUploadChange(
+                handleImageValidations(
                   e.fileList,
                   setImageValidation,
                   setIsUploaded,
@@ -493,7 +495,7 @@ const AddListingForm = () => {
                   console.log("red");
                   return;
                 }
-                handleAgentChange(value, setAgentValidation);
+                handleSelectValidations(value, setAgentValidation);
               }}
             >
               {/* First option as a button to log "red" */}
