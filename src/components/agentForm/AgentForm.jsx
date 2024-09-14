@@ -251,7 +251,7 @@ const AgentForm = () => {
               e.fileList,
               setImageValidation,
               setIsUploaded,
-              setImgBinary // Pass setImgBinary to handleImageUploadChange
+              setImgBinary
             )
           }
           showUploadList={{

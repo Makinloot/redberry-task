@@ -21,8 +21,8 @@ const AddListingForm = () => {
   const [cities, setCities] = useState([]);
   const { setBaseURL, api } = useAppContext();
   const [selectedRegionId, setSelectedRegionId] = useState("");
-  const [imgBinary, setImgBinary] = useState(null);
   const [isUploaded, setIsUploaded] = useState(false);
+  const [imgBinary, setImgBinary] = useState(null);
 
   // validation states
   const [addressValidation, setAddressValidation] = useState({
@@ -65,6 +65,44 @@ const AddListingForm = () => {
 
   const onFinish = (values) => {
     console.log(values);
+    console.log(imgBinary);
+    try {
+      // add agent
+      const addListing = async () => {
+        const formData = new FormData();
+        formData.append("address", values.address);
+        formData.append("region_id", values.region);
+        formData.append("description", values.description);
+        formData.append("city_id", values.city);
+        formData.append("zip_code", values.zipCode);
+        formData.append("price", values.price);
+        formData.append("area", values.area);
+        formData.append("bedrooms", values.bedrooms);
+        formData.append("is_rental", values.radioGroup === 1 ? 0 : 1);
+        if (imgBinary) {
+          formData.append("image", imgBinary, "avatar.png");
+        }
+
+        console.log("LISTING VALUES", formData);
+        try {
+          setBaseURL(
+            "https://api.real-estate-manager.redberryinternship.ge/api"
+          );
+          const response = await api.post(`/real-estates`, formData);
+          console.log(response.data);
+          success();
+          setTimeout(() => {
+            setOpenModal(false);
+          }, 500);
+        } catch (error) {
+          console.error("error adding listing:", error);
+        }
+      };
+
+      addListing();
+    } catch (err) {
+      console.log("ERROR ADDING listing: ", err);
+    }
   };
 
   const onFinishFailed = (errorInfo) => {
@@ -80,8 +118,8 @@ const AddListingForm = () => {
         const responseCities = await api.get("/cities");
         setRegions(response.data);
         setCities(responseCities.data);
-        console.log(response.data);
-        console.log(responseCities.data);
+        // console.log(response.data);
+        // console.log(responseCities.data);
       } catch (error) {
         console.error("Error fetching cities:", error);
       }
@@ -363,7 +401,7 @@ const AddListingForm = () => {
                   e.fileList,
                   setImageValidation,
                   setIsUploaded,
-                  setImgBinary // Pass setImgBinary to handleImageUploadChange
+                  setImgBinary
                 )
               }
               showUploadList={{
