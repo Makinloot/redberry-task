@@ -26,7 +26,7 @@
 .estate-card-row {
   display: flex;
   align-items: center;
-  gap: 4px;
+  gap: 6px;
   padding: 0 0 14px;
 }
 .estate-card-row.no-padding {
@@ -51,4 +51,5 @@
   font-weight: 500;
   padding: 8px;
   border-radius: 15px;
+  font-family: "firago-medium";
 }

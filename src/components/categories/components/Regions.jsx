@@ -69,9 +69,9 @@ const Regions = () => {
           className={`category-btn ${visible ? "category-btn-active" : ""}`}
           type="text"
           onClick={toggleDropdown}
-          style={{ fontFamily: "firago-bold" }}
+          // style={{ fontFamily: "firago-bold" }}
         >
-          რეგიონი
+          <span>რეგიონი</span>
           {visible ? (
             <UpOutlined style={{ fontSize: 13 }} />
           ) : (

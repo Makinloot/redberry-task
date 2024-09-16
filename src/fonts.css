@@ -1,8 +1,8 @@
 @font-face {
   font-family: "firago-bold";
-  src: url("./assets/fonts/FiraGO-Bold.woff2") format("woff2"),
-    url("./assets/fonts/FiraGO-Bold.woff") format("woff"),
-    url("./assets/fonts/FiraGO-Bold.ttf") format("truetype");
+  src: url("./assets/fonts/FiraGO-ExtraBold.woff2") format("woff2"),
+    url("./assets/fonts/FiraGO-ExtraBold.woff") format("woff"),
+    url("./assets/fonts/FiraGO-ExtraBold.ttf") format("truetype");
   font-weight: bold;
   font-style: normal;
   font-display: swap;
@@ -13,6 +13,26 @@
   src: url("./assets/fonts/FiraGO-Regular.woff2") format("woff2"),
     url("./assets/fonts/FiraGO-Regular.woff") format("woff"),
     url("./assets/fonts/FiraGO-Regular.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "firago-medium";
+  src: url("./assets/fonts/FiraGO-Medium.woff2") format("woff2"),
+    url("./assets/fonts/FiraGO-Medium.woff") format("woff"),
+    url("./assets/fonts/FiraGO-Medium.ttf") format("truetype");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "helvetica";
+  src: url("./assets/fonts/HelveticaNeueLTGEOCaps-55Rmn.woff2") format("woff2"),
+    url("./assets/fonts/HelveticaNeueLTGEOCaps-55Rmn.woff") format("woff"),
+    url("./assets/fonts/HelveticaNeueLTGEOCaps-55Rmn.ttf") format("truetype");
   font-weight: normal;
   font-style: normal;
   font-display: swap;

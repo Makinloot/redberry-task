@@ -12,7 +12,7 @@ input {
 
 .agent-form-item label,
 .upload-label {
-  font-family: "firago-bold";
+  font-family: "firago-medium";
   font-size: 0.875rem;
 }
 
@@ -106,4 +106,8 @@ input {
   /* display: none; */
   position: absolute;
   bottom: -10px;
+}
+
+.form-buttons button {
+  font-family: "firago-medium";
 }

@@ -631,7 +631,14 @@ const AddListingForm = () => {
       <Form.Item className="form-buttons">
         <Row justify={"end"} gutter={15}>
           <Col>
-            <button type="button" className="cancel-agent">
+            <button
+              type="button"
+              className="cancel-agent"
+              onClick={() => {
+                sessionStorage.clear();
+                navigate("/");
+              }}
+            >
               გაუქმება
             </button>
           </Col>

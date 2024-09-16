@@ -6,6 +6,8 @@
 .add-listing-form-title {
   font-size: 1rem;
   margin-bottom: 22px;
+  font-family: "helvetica";
+  font-weight: 600;
 }
 
 .select-input {

@@ -28,3 +28,21 @@ a {
 .ant-select-dropdown {
   z-index: 1000 !important;
 }
+
+.ant-radio-inner {
+  border-color: #000000 !important;
+  background-color: #ffffff !important;
+}
+.ant-radio-inner::after {
+  background-color: #000000 !important;
+}
+
+.ant-checkbox-checked .ant-checkbox-inner {
+  background-color: #45a849 !important;
+  border-color: #45a849 !important;
+}
+
+.ant-checkbox-inner {
+  width: 20px !important;
+  height: 20px !important;
+}

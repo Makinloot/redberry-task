@@ -103,6 +103,11 @@
   font-size: 0.75rem;
   margin-top: 20px;
 }
+
+.delete-listing span {
+  font-family: "firago-medium";
+}
+
 .delete-listing:hover {
   border: 1px solid #676e76 !important;
   color: #fff !important;
@@ -149,4 +154,5 @@
   color: #021526;
   font-weight: 500;
   padding: 50px 0;
+  font-family: "firago-medium";
 }
