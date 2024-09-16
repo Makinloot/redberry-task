@@ -88,9 +88,8 @@ const AgentForm = () => {
   };
 
   const onFinishFailed = ({ errorFields }) => {
-    error(); // Show the general error message
+    error();
 
-    // Loop over the errorFields to trigger validation for each field with errors
     errorFields.forEach(({ name }) => {
       if (name[0] === "name") {
         handleStringValidations(
@@ -122,7 +121,6 @@ const AgentForm = () => {
       }
     });
 
-    // Check if the avatar is uploaded
     if (!isUploaded) {
       setImageValidation({
         validateStatus: "error",
@@ -164,7 +162,9 @@ const AgentForm = () => {
             <Input
               className="agent-input"
               name="name"
-              onChange={(e) => handleStringValidations(e, setNameValidation)}
+              onChange={(e) => {
+                handleStringValidations(e, setNameValidation);
+              }}
             />
           </Form.Item>
         </Col>
@@ -187,9 +187,9 @@ const AgentForm = () => {
             <Input
               className="agent-input"
               name="surname"
-              onChange={(e) =>
-                handleStringValidations(e, setLastNameValidation)
-              }
+              onChange={(e) => {
+                handleStringValidations(e, setLastNameValidation);
+              }}
             />
           </Form.Item>
         </Col>
@@ -219,7 +219,9 @@ const AgentForm = () => {
             <Input
               className="agent-input"
               name="email"
-              onChange={(e) => handleEmailValidations(e, setEmailValidation)}
+              onChange={(e) => {
+                handleEmailValidations(e, setEmailValidation);
+              }}
             />
           </Form.Item>
         </Col>
@@ -247,9 +249,9 @@ const AgentForm = () => {
             <Input
               className="agent-input"
               name="phone"
-              onChange={(e) =>
-                handleNumberValidations(e, setPhoneNumberValidation, "phone")
-              }
+              onChange={(e) => {
+                handleNumberValidations(e, setPhoneNumberValidation, "phone");
+              }}
             />
           </Form.Item>
         </Col>
@@ -262,6 +264,7 @@ const AgentForm = () => {
         className="upload-input-wrapper"
         validateStatus={imageValidation.validateStatus}
         help={imageValidation.help}
+        rules={[{ required: true }]}
       >
         <Upload
           listType="picture-card"

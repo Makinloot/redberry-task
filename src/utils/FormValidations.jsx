@@ -129,6 +129,11 @@ export const handleSelectValidations = (e, setValidation) => {
         </div>
       ),
     });
+  } else {
+    setValidation({
+      validateStatus: "success",
+      help: "",
+    });
   }
 };
 

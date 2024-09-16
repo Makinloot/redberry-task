@@ -1,5 +1,7 @@
 .agent-modal {
   width: 1009px !important;
+  position: relative;
+  z-index: 1100 !important;
 }
 
 .agent-modal .ant-modal-content {

@@ -28,7 +28,9 @@ const AddListingForm = () => {
   const [regions, setRegions] = useState([]);
   const [cities, setCities] = useState([]);
   const { setBaseURL, api, setOpenModal, openModal } = useAppContext();
-  const [selectedRegionId, setSelectedRegionId] = useState("");
+  const [selectedRegionId, setSelectedRegionId] = useState(
+    sessionStorage.getItem("listingRegion") || null
+  );
   const [isUploaded, setIsUploaded] = useState(false);
   const [imgBinary, setImgBinary] = useState(null);
   const [agents, setAgents] = useState([]);
@@ -131,11 +133,10 @@ const AddListingForm = () => {
     }
   };
 
+  // const onFinishFailed = ({ errorFields }) => {
   const onFinishFailed = ({ errorFields }) => {
-    console.log("Failed:", errorFields);
-    error(); // Show the general error message
+    error();
 
-    // Loop over the errorFields to trigger validation for each field with errors
     errorFields.forEach(({ name }) => {
       if (name[0] === "address") {
         handleStringValidations(
@@ -195,11 +196,9 @@ const AddListingForm = () => {
       }
 
       if (name[0] === "description") {
-        // Manually trigger validation for TextArea
         handleTextValidations("", setDescriptionValidation);
       }
 
-      // Check if the avatar is uploaded
       if (!isUploaded) {
         setImageValidation({
           validateStatus: "error",
@@ -253,6 +252,22 @@ const AddListingForm = () => {
       onFinishFailed={onFinishFailed}
       autoComplete="off"
       className="add-listing-form"
+      initialValues={{
+        address: sessionStorage.getItem("listingAddress") || "",
+        zipCode: sessionStorage.getItem("listingZip") || null,
+        region: Number(sessionStorage.getItem("listingRegion")) || null,
+        // city needs to be fixed
+        city: Number(sessionStorage.getItem("listingCity")) || null,
+        price: Number(sessionStorage.getItem("listingPrice")) || null,
+        area: Number(sessionStorage.getItem("listingArea")) || null,
+        bedrooms: Number(sessionStorage.getItem("listingBedrooms")) || null,
+        description: sessionStorage.getItem("listingDescription") || "",
+        radioGroup:
+          Number(sessionStorage.getItem("listingRadio")) > 0
+            ? Number(sessionStorage.getItem("listingRadio"))
+            : 1,
+        agent: Number(sessionStorage.getItem("listingAgent")) || null,
+      }}
     >
       {contextHolder}
       <p className="add-listing-form-title" style={{ marginBottom: 8 }}>
@@ -263,7 +278,12 @@ const AddListingForm = () => {
         initialValue={1}
         style={{ marginBottom: 80 }}
       >
-        <Radio.Group style={{ display: "flex", gap: 64 }}>
+        <Radio.Group
+          style={{ display: "flex", gap: 64 }}
+          onChange={(e) =>
+            sessionStorage.setItem("listingRadio", e.target.value)
+          }
+        >
           <Radio value={1}>იყიდება</Radio>
           <Radio value={2}>ქირავდება</Radio>
         </Radio.Group>
@@ -290,7 +310,10 @@ const AddListingForm = () => {
             <Input
               className="agent-input"
               name="address"
-              onChange={(e) => handleStringValidations(e, setAddressValidation)}
+              onChange={(e) => {
+                handleStringValidations(e, setAddressValidation);
+                sessionStorage.setItem("listingAddress", e.target.value);
+              }}
             />
           </Form.Item>
         </Col>
@@ -318,9 +341,10 @@ const AddListingForm = () => {
             <Input
               className="agent-input"
               name="zipCpde"
-              onChange={(e) =>
-                handleNumberValidations(e, setZipCodeValidation, "number")
-              }
+              onChange={(e) => {
+                handleNumberValidations(e, setZipCodeValidation, "number");
+                sessionStorage.setItem("listingZip", e.target.value);
+              }}
             />
           </Form.Item>
         </Col>
@@ -340,14 +364,14 @@ const AddListingForm = () => {
               onChange={(value) => {
                 handleSelectValidations(value, setRegionValidation);
                 setSelectedRegionId(value);
+                sessionStorage.setItem("listingRegion", value);
               }}
-            >
-              {regions.map((item, i) => (
-                <Select.Option value={item.id} key={i}>
-                  {item.name}
-                </Select.Option>
-              ))}
-            </Select>
+              options={regions.map((item) => ({
+                label: item.name,
+                value: item.id,
+                className: "select-options",
+              }))}
+            />
           </Form.Item>
         </Col>
         <Col span={12}>
@@ -362,18 +386,23 @@ const AddListingForm = () => {
             <Select
               disabled={!selectedRegionId}
               className="agent-input select-input"
-              onChange={(value) =>
-                handleSelectValidations(value, setCityValidation)
-              }
-            >
-              {cities
-                .filter((item) => item.region_id === selectedRegionId)
-                .map((item, i) => (
-                  <Select.Option value={item.id} key={i}>
-                    {item.name}
-                  </Select.Option>
-                ))}
-            </Select>
+              onChange={(value) => {
+                handleSelectValidations(value, setCityValidation);
+                sessionStorage.setItem("listingCity", value);
+              }}
+              options={cities
+                .filter((item) => {
+                  return item.region_id === Number(selectedRegionId);
+                })
+                .map((item) => {
+                  console.log(item);
+                  return {
+                    label: item.name,
+                    value: item.id,
+                    className: "select-options",
+                  };
+                })}
+            />
           </Form.Item>
         </Col>
       </Row>
@@ -399,9 +428,10 @@ const AddListingForm = () => {
             <Input
               className="agent-input"
               name="price"
-              onChange={(e) =>
-                handleNumberValidations(e, setPriceValidation, "number")
-              }
+              onChange={(e) => {
+                handleNumberValidations(e, setPriceValidation, "number");
+                sessionStorage.setItem("listingPrice", e.target.value);
+              }}
             />
           </Form.Item>
         </Col>
@@ -424,9 +454,10 @@ const AddListingForm = () => {
             <Input
               className="agent-input"
               name="area"
-              onChange={(e) =>
-                handleNumberValidations(e, setAreaValidation, "number")
-              }
+              onChange={(e) => {
+                handleNumberValidations(e, setAreaValidation, "number");
+                sessionStorage.setItem("listingArea", e.target.value);
+              }}
             />
           </Form.Item>
         </Col>
@@ -457,9 +488,10 @@ const AddListingForm = () => {
             <Input
               className="agent-input"
               name="bedrooms"
-              onChange={(e) =>
-                handleNumberValidations(e, setBedroomsValidation, "number")
-              }
+              onChange={(e) => {
+                handleNumberValidations(e, setBedroomsValidation, "number");
+                sessionStorage.setItem("listingBedrooms", e.target.value);
+              }}
             />
           </Form.Item>
         </Col>
@@ -484,9 +516,10 @@ const AddListingForm = () => {
               name="description"
               rows={6}
               style={{ resize: "none" }}
-              onChange={(e) =>
-                handleTextValidations(e.target.value, setDescriptionValidation)
-              }
+              onChange={(e) => {
+                handleTextValidations(e.target.value, setDescriptionValidation);
+                sessionStorage.setItem("listingDescription", e.target.value);
+              }}
               rules={[
                 { required: true, message: "სავალდებულო ველია" },
                 {
@@ -494,7 +527,7 @@ const AddListingForm = () => {
                     const trimmedValue = value ? value.trim() : "";
                     const wordCount = trimmedValue
                       .split(/\s+/)
-                      .filter(Boolean).length; // Split by spaces and filter out empty strings
+                      .filter(Boolean).length;
 
                     if (wordCount < 5) {
                       return Promise.reject(new Error("მინიმუმ 5 სიტყვა"));
@@ -516,6 +549,7 @@ const AddListingForm = () => {
             validateStatus={imageValidation.validateStatus}
             help={imageValidation.help}
             style={{ marginTop: 7 }}
+            rules={[{ required: true }]}
           >
             <Upload
               listType="picture-card"
@@ -569,35 +603,27 @@ const AddListingForm = () => {
                   return;
                 }
                 handleSelectValidations(value, setAgentValidation);
+                sessionStorage.setItem("listingAgent", value);
               }}
-            >
-              {/* First option as a button to log "red" */}
-              <Select.Option
-                value="logRed"
-                key="logRed"
-                className="select-options btn"
-              >
-                <button
-                  type="button"
-                  onClick={() => setOpenModal(true)}
-                  className="inside-select-btn"
-                >
-                  <img src={plusCircle} />
-                  <span>დაამატე აგენტი</span>
-                </button>
-              </Select.Option>
-
-              {/* Render the rest of the agent options with border bottom */}
-              {agents.map((item, i) => (
-                <Select.Option
-                  value={item.id}
-                  key={i}
-                  className="select-options"
-                >
-                  {item.name}
-                </Select.Option>
-              ))}
-            </Select>
+              dropdownRender={(menu) => (
+                <>
+                  {menu}
+                  <button
+                    type="button"
+                    onClick={() => setOpenModal(true)}
+                    className="inside-select-btn"
+                  >
+                    <img src={plusCircle} />
+                    <span>დაამატე აგენტი</span>
+                  </button>
+                </>
+              )}
+              options={agents.map((item) => ({
+                label: item.name,
+                value: item.id,
+                className: "select-options",
+              }))}
+            />
           </Form.Item>
         </Col>
       </Row>

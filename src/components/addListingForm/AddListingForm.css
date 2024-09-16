@@ -14,7 +14,7 @@
 
 .select-options {
   padding: 10px 12.5px !important;
-  border-top: 1px solid;
+  border-bottom: 1px solid #d9d9d9;
   border-radius: 0 !important;
   position: relative;
 }
@@ -28,9 +28,6 @@
 }
 
 .inside-select-btn {
-  position: absolute;
-  top: 0;
-  left: 0;
   width: 100%;
   height: 100%;
   display: flex;
@@ -38,6 +35,7 @@
   border: none;
   cursor: pointer;
   align-items: center;
-  padding-left: 10px;
   gap: 8px;
+  padding: 10px;
+  border-top: 1px solid #d9d9d9;
 }
