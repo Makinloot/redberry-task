@@ -100,6 +100,15 @@ export const handleNumberValidations = (e, setValidation, pattern) => {
         </div>
       ),
     });
+  } else if (pattern === "bedrooms" && !onlyNumberPattern.test(value)) {
+    setValidation({
+      validateStatus: "error",
+      help: (
+        <div>
+          <CheckOutlined /> <span>ნუმერული სიმბოლოები (მაქსიმუმი 255)</span>
+        </div>
+      ),
+    });
   } else {
     setValidation({
       validateStatus: "success",
@@ -107,7 +116,7 @@ export const handleNumberValidations = (e, setValidation, pattern) => {
         <div>
           <CheckOutlined />{" "}
           <span>
-            {pattern === "number"
+            {pattern === "number" || pattern === "bedrooms"
               ? "ნუმერული სიმბოლოები"
               : "ნუმერული სიმბოლოები და ფორმატის 5XXXXXXXX"}
           </span>

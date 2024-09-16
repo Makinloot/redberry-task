@@ -10,8 +10,6 @@ function App() {
     <>
       <Header />
       <AgentModal />
-
-      {/* <Home /> */}
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/listing/:id" element={<Listing />} />

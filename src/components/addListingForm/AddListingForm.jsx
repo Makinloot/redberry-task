@@ -118,6 +118,7 @@ const AddListingForm = () => {
             "https://api.real-estate-manager.redberryinternship.ge/api"
           );
           await api.post(`/real-estates`, formData);
+          sessionStorage.clear();
           success();
           setTimeout(() => {
             navigate("/");
@@ -476,7 +477,7 @@ const AddListingForm = () => {
               )
             }
             rules={[
-              { required: true },
+              { required: true, max: 255 },
               {
                 validator: (_, value) =>
                   value && Number.isInteger(Number(value))
@@ -489,7 +490,7 @@ const AddListingForm = () => {
               className="agent-input"
               name="bedrooms"
               onChange={(e) => {
-                handleNumberValidations(e, setBedroomsValidation, "number");
+                handleNumberValidations(e, setBedroomsValidation, "bedrooms");
                 sessionStorage.setItem("listingBedrooms", e.target.value);
               }}
             />

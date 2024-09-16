@@ -76,10 +76,15 @@ const Filters = () => {
       priceRange.to !== "" ||
       areaRange.from !== "" ||
       areaRange.to !== "" ||
-      bedrooms !== 0 ? (
+      bedrooms != "" ? (
         <span
           onClick={deleteEveryFilter}
-          style={{ fontSize: 14, fontWeight: 500, cursor: "pointer" }}
+          style={{
+            fontFamily: "firago-medium",
+            border: "none",
+            cursor: "pointer",
+          }}
+          className="filter-wrapper"
         >
           გასუფთავება
         </span>

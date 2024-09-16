@@ -11,17 +11,12 @@ const Rooms = () => {
 
   const handleBedroomSize = (value) => {
     if (!value) {
-      setBedrooms(0);
-      localStorage.setItem("bedrooms", 0);
+      setBedrooms("");
+      localStorage.removeItem("bedrooms");
     } else {
       setBedrooms(value);
       localStorage.setItem("bedrooms", value);
     }
-    // if (bedrooms === value) {
-    //   setBedrooms(0);
-    //   localStorage.setItem("bedrooms", 0);
-    // } else setBedrooms(value);
-    // localStorage.setItem("bedrooms", value);
   };
 
   const toggleDropdown = () => {

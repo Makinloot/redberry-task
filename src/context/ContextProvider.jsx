@@ -21,7 +21,7 @@ const ContextProvider = ({ children }) => {
     to: JSON.parse(localStorage.getItem("areaRange"))?.to || "",
   });
   const [bedrooms, setBedrooms] = useState(
-    Number(localStorage.getItem("bedrooms")) || 0
+    Number(localStorage.getItem("bedrooms")) || ""
   );
 
   // authorization for api calls
@@ -52,5 +52,4 @@ const ContextProvider = ({ children }) => {
   return <Context.Provider value={values}>{children}</Context.Provider>;
 };
 
-// eslint-disable-next-line react-refresh/only-export-components
 export { ContextProvider, useAppContext };

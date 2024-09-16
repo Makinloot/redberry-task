@@ -13,6 +13,7 @@ const AddListing = () => {
               paddingTop: 62,
               paddingBottom: 62,
               textAlign: "center",
+              fontFamily: "firago-medium",
             }}
           >
             ლისტინგის დამატება
