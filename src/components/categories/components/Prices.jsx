@@ -59,7 +59,7 @@ const Prices = () => {
       if (fromValue > toValue) {
         setError("გთხოვთ, შეიყვანოთ სწორი დიაპაზონი");
       } else {
-        setError(""); // Clear error if the range is valid
+        setError("");
       }
     }
   }, [priceRange]);

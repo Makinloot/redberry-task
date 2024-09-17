@@ -26,6 +26,12 @@ const Home = () => {
     fetchCities();
   }, []);
 
+  /*
+    filter data by selected filter categories,
+    if at least one filter category matches selected filters,
+    push that object to array and return it,
+    if there is no filters return unfiltered array
+  */
   function filterData() {
     const filteredData = listings.filter((estate) => {
       let arr = [];

@@ -69,7 +69,6 @@ const Regions = () => {
           className={`category-btn ${visible ? "category-btn-active" : ""}`}
           type="text"
           onClick={toggleDropdown}
-          // style={{ fontFamily: "firago-bold" }}
         >
           <span>რეგიონი</span>
           {visible ? (
@@ -94,7 +93,6 @@ const Regions = () => {
                 </div>
               ))}
             </div>
-            {/* ADD BUTTON HERE */}
             <div className="options-btn-wrapper">
               <Button type="primary" onClick={handleConfirm}>
                 არჩევა

@@ -94,9 +94,12 @@ const AddListingForm = () => {
     });
   };
 
+  /*
+    handle form by sending object of new listing to server,
+    show sccess message and redirect to main page
+  */
   const onFinish = (values) => {
     try {
-      // add agent
       const addListing = async () => {
         const formData = new FormData();
         formData.append("address", values.address);
@@ -134,7 +137,10 @@ const AddListingForm = () => {
     }
   };
 
-  // const onFinishFailed = ({ errorFields }) => {
+  /*
+    if submitting form fails display error message
+    also show input field validations to see where is errors
+  */
   const onFinishFailed = ({ errorFields }) => {
     error();
 
@@ -257,7 +263,6 @@ const AddListingForm = () => {
         address: sessionStorage.getItem("listingAddress") || "",
         zipCode: sessionStorage.getItem("listingZip") || null,
         region: Number(sessionStorage.getItem("listingRegion")) || null,
-        // city needs to be fixed
         city: Number(sessionStorage.getItem("listingCity")) || null,
         price: Number(sessionStorage.getItem("listingPrice")) || null,
         area: Number(sessionStorage.getItem("listingArea")) || null,
@@ -366,6 +371,8 @@ const AddListingForm = () => {
                 handleSelectValidations(value, setRegionValidation);
                 setSelectedRegionId(value);
                 sessionStorage.setItem("listingRegion", value);
+                sessionStorage.removeItem("listingCity");
+                form.setFieldsValue({ city: null });
               }}
               options={regions.map((item) => ({
                 label: item.name,
@@ -396,7 +403,6 @@ const AddListingForm = () => {
                   return item.region_id === Number(selectedRegionId);
                 })
                 .map((item) => {
-                  console.log(item);
                   return {
                     label: item.name,
                     value: item.id,

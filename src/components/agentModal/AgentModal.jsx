@@ -6,11 +6,9 @@ import AgentForm from "../agentForm/AgentForm";
 const AgentModal = () => {
   const { openModal, setOpenModal } = useAppContext();
   const handleOk = () => {
-    console.log("OK MODAL");
     setOpenModal(false);
   };
   const handleCancel = () => {
-    console.log("Clicked cancel button");
     setOpenModal(false);
   };
 

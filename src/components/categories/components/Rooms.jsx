@@ -64,7 +64,6 @@ const Rooms = () => {
             style={{ minWidth: 282 }}
           >
             <span className="options-title">საძინებლების რაოდენობა</span>
-            {/* room amounts */}
             <div className="bedroom-size-container">
               <Input
                 className="bedroom-size"

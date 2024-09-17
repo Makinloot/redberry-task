@@ -69,8 +69,6 @@ const Area = () => {
     setVisible(false);
   };
 
-  const options = ["Option 1", "Option 2", "Option 3"];
-
   return (
     <div>
       <div style={{ position: "relative", display: "inline-block" }}>

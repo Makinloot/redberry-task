@@ -54,6 +54,10 @@ const AgentForm = () => {
     });
   };
 
+  /*
+    handle form by sending object of new agent to server,
+    show sccess message and close modal
+  */
   const onFinish = (values) => {
     try {
       // add agent
@@ -87,6 +91,10 @@ const AgentForm = () => {
     }
   };
 
+  /*
+    if submitting form fails display error message
+    also show input field validations to see where is errors
+  */
   const onFinishFailed = ({ errorFields }) => {
     error();
 
