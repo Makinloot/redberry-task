@@ -198,7 +198,7 @@ const AddListingForm = () => {
         handleNumberValidations(
           { target: { value: form.getFieldValue("bedrooms") } },
           setBedroomsValidation,
-          "number"
+          "bedrooms"
         );
       }
 
@@ -562,14 +562,14 @@ const AddListingForm = () => {
               listType="picture-card"
               beforeUpload={() => false}
               maxCount={1}
-              onChange={(e) =>
+              onChange={(e) => {
                 handleImageValidations(
                   e.fileList,
                   setImageValidation,
                   setIsUploaded,
                   setImgBinary
-                )
-              }
+                );
+              }}
               showUploadList={{
                 showPreviewIcon: false,
                 showRemoveIcon: true,

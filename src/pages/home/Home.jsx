@@ -3,9 +3,8 @@ import Categories from "../../components/categories/Categories";
 import { useAppContext } from "../../context/ContextProvider";
 import EstateCard from "../../components/estateCard/EstateCard";
 import Filters from "../../components/filters/Filters";
-import { useNavigate } from "react-router-dom";
+
 const Home = () => {
-  const navigate = useNavigate();
   const { setBaseURL, api, selectedItems, priceRange, areaRange, bedrooms } =
     useAppContext();
   const [listings, setListings] = useState([]);
@@ -99,21 +98,29 @@ const Home = () => {
               gap: 20,
             }}
           >
-            {filteredListings.map((item) => (
-              <div key={item.id}>
-                <EstateCard
-                  address={item.address}
-                  area={item.area}
-                  bedrooms={item.bedrooms}
-                  city={item.city.name}
-                  img={item.image}
-                  price={item.price}
-                  rented={item.is_rental}
-                  zip={item.zip_code}
-                  id={item.id}
-                />
-              </div>
-            ))}
+            {listings.length < 1 ? (
+              ""
+            ) : listings.length > 0 && filteredListings.length > 0 ? (
+              filteredListings.map((item) => (
+                <div key={item.id}>
+                  <EstateCard
+                    address={item.address}
+                    area={item.area}
+                    bedrooms={item.bedrooms}
+                    city={item.city.name}
+                    img={item.image}
+                    price={item.price}
+                    rented={item.is_rental}
+                    zip={item.zip_code}
+                    id={item.id}
+                  />
+                </div>
+              ))
+            ) : (
+              <span style={{ fontSize: 20, fontFamily: "firago-medium" }}>
+                აღნიშნული მონაცემებით განცხადება არ იძებნება
+              </span>
+            )}
           </div>
         </div>
       </div>

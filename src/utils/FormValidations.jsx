@@ -105,6 +105,15 @@ export const handleNumberValidations = (e, setValidation, pattern) => {
       validateStatus: "error",
       help: (
         <div>
+          <CheckOutlined /> <span>ნუმერული სიმბოლოები</span>
+        </div>
+      ),
+    });
+  } else if (pattern === "bedrooms" && value > 255) {
+    setValidation({
+      validateStatus: "error",
+      help: (
+        <div>
           <CheckOutlined /> <span>ნუმერული სიმბოლოები (მაქსიმუმი 255)</span>
         </div>
       ),
