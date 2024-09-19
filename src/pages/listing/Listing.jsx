@@ -12,6 +12,7 @@ import moment from "moment";
 import emailIcon from "/email.png";
 import phoneIcon from "/phone.png";
 import { Button, Modal } from "antd";
+import arrowLeft from "/arrow-left.png";
 
 // Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -88,6 +89,13 @@ const Listing = () => {
       <div className="Listing">
         <div className="container">
           <div className="Listing-wrapper">
+            <div style={{ marginBottom: 35 }}>
+              <img
+                onClick={() => window.history.back()}
+                style={{ cursor: "pointer" }}
+                src={arrowLeft}
+              />
+            </div>
             <div className="Listing-details">
               <div className="Listing-details-img">
                 <img src={listing.image} />

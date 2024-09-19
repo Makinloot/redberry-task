@@ -274,6 +274,7 @@ const AddListingForm = () => {
             : 1,
         agent: Number(sessionStorage.getItem("listingAgent")) || null,
       }}
+      scrollToFirstError
     >
       {contextHolder}
       <p className="add-listing-form-title" style={{ marginBottom: 8 }}>

@@ -2,7 +2,7 @@ import { CheckOutlined } from "@ant-design/icons";
 import "./AgentForm.css";
 import { Form, Input, Button, Row, Col, Upload, message } from "antd";
 import plusCircle from "/plus-circle.png";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useAppContext } from "../../context/ContextProvider";
 import {
   handleEmailValidations,
@@ -14,7 +14,7 @@ import {
 const AgentForm = () => {
   const [form] = Form.useForm();
   const [isUploaded, setIsUploaded] = useState(false);
-  const { setBaseURL, api, setOpenModal } = useAppContext();
+  const { setBaseURL, api, setOpenModal, openModal } = useAppContext();
   const [imgBinary, setImgBinary] = useState(null);
   const [messageApi, contextHolder] = message.useMessage();
 
@@ -39,6 +39,29 @@ const AgentForm = () => {
     validateStatus: "",
     help: "",
   });
+
+  const handleResetValidations = () => {
+    setNameValidation({
+      validateStatus: "",
+      help: "",
+    });
+    setLastNameValidation({
+      validateStatus: "",
+      help: "",
+    });
+    setEmailValidation({
+      validateStatus: "",
+      help: "",
+    });
+    setPhoneNumberValidation({
+      validateStatus: "",
+      help: "",
+    });
+    setImageValidation({
+      validateStatus: "",
+      help: "",
+    });
+  };
 
   const success = () => {
     messageApi.open({
@@ -141,6 +164,12 @@ const AgentForm = () => {
     }
   };
 
+  useEffect(() => {
+    if (!openModal) {
+      form.resetFields();
+      handleResetValidations();
+    }
+  }, [openModal]);
   return (
     <Form
       form={form}
@@ -302,7 +331,11 @@ const AgentForm = () => {
             <button
               type="button"
               className="cancel-agent"
-              onClick={() => setOpenModal(false)}
+              onClick={() => {
+                setOpenModal(false);
+                form.resetFields();
+                handleResetValidations();
+              }}
             >
               გაუქმება
             </button>
