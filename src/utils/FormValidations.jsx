@@ -1,5 +1,9 @@
 import { CheckOutlined } from "@ant-design/icons";
 
+/*
+  handles string input validations,
+  requires event and setState to put result messages
+*/
 export const handleStringValidations = (e, setValidation) => {
   const value = e.target.value;
 
@@ -33,6 +37,10 @@ export const handleStringValidations = (e, setValidation) => {
   }
 };
 
+/*
+  handles email input validations,
+  requires event and setState to put result messages
+*/
 export const handleEmailValidations = (e, setValidation) => {
   const value = e.target.value;
   const emailPattern = /^[a-zA-Z0-9._%+-]+@redberry\.ge$/;
@@ -67,6 +75,11 @@ export const handleEmailValidations = (e, setValidation) => {
   }
 };
 
+/*
+  handles number input validations,
+  requires event, setState to put result messages
+  and pattern string to show different result messages for different inputs
+*/
 export const handleNumberValidations = (e, setValidation, pattern) => {
   const value = e.target.value;
   const phonePattern = /^5\d{8}$/;
@@ -135,6 +148,10 @@ export const handleNumberValidations = (e, setValidation, pattern) => {
   }
 };
 
+/*
+  handles select input validations,
+  requires event and setState to put result messages
+*/
 export const handleSelectValidations = (e, setValidation) => {
   const value = e;
 
@@ -155,6 +172,10 @@ export const handleSelectValidations = (e, setValidation) => {
   }
 };
 
+/*
+  handles textarea validations,
+  requires event and setState to put result messages
+*/
 export const handleTextValidations = (e, setValidation) => {
   const value = e.trim();
   const wordCount = value.split(/\s+/).length;
@@ -189,7 +210,13 @@ export const handleTextValidations = (e, setValidation) => {
   }
 };
 
-// handle image validations and also convert image to binary string
+/*
+  handles image upload input validations,
+  requires fileList object of uploaded image,
+  setState to upload result messages,
+  setUpload state which becomes true after uploading image,
+  and also converts image object to binary string and saves it to setImgBinary state
+*/
 export const handleImageValidations = (
   fileList,
   setValidation,

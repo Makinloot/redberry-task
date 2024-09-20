@@ -87,10 +87,10 @@ const AddListingForm = () => {
     });
   };
 
-  const error = () => {
+  const error = (value) => {
     messageApi.open({
       type: "error",
-      content: "გთხოვთ შეავსოთ ყველა სავალდებულო ველი სწორად",
+      content: value,
     });
   };
 
@@ -126,8 +126,9 @@ const AddListingForm = () => {
           setTimeout(() => {
             navigate("/");
           }, 500);
-        } catch (error) {
-          console.error("error adding listing:", error);
+        } catch (err) {
+          console.error("error adding listing:", err);
+          error("სურათის ზომა ზედმეტად დიდია !");
         }
       };
 
@@ -142,7 +143,7 @@ const AddListingForm = () => {
     also show input field validations to see where is errors
   */
   const onFinishFailed = ({ errorFields }) => {
-    error();
+    error("გთხოვთ შეავსოთ ყველა სავალდებულო ველი სწორად");
 
     errorFields.forEach(({ name }) => {
       if (name[0] === "address") {
@@ -473,7 +474,7 @@ const AddListingForm = () => {
           <Form.Item
             className="agent-form-item"
             name="bedrooms"
-            label={"საძინებლების რაოდენობა"}
+            label={"აძინებლების რაოდენობა"}
             validateStatus={bedroomsValidation.validateStatus}
             help={bedroomsValidation.help}
             extra={
@@ -483,15 +484,7 @@ const AddListingForm = () => {
                 </span>
               )
             }
-            rules={[
-              { required: true, max: 255 },
-              {
-                validator: (_, value) =>
-                  value && Number.isInteger(Number(value))
-                    ? Promise.resolve()
-                    : Promise.reject(new Error("ნუმერული სიმბოლოები")),
-              },
-            ]}
+            rules={[{ required: true }]}
           >
             <Input
               className="agent-input"

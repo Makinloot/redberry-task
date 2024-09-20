@@ -27,7 +27,7 @@ const ContextProvider = ({ children }) => {
   // authorization for api calls
   const api = axios.create({
     headers: {
-      Authorization: `Bearer 9d083bd2-a671-4388-ae72-ec3dfe456e91`,
+      Authorization: `Bearer 9d0c8687-e572-47cb-9813-397d55e25e4e`,
     },
   });
   // function to dinamically set urls for api calls

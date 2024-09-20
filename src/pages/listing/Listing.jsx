@@ -140,7 +140,7 @@ const Listing = () => {
                   <div
                     style={{ display: "flex", gap: 14, alignItems: "center" }}
                   >
-                    <img className="agent-img" src={testImg} />
+                    <img className="agent-img" src={listing.agent.avatar} />
                     <div style={{ display: "flex", flexDirection: "column" }}>
                       <span className="agent-name">
                         {listing.agent.name} {listing.agent.surname}

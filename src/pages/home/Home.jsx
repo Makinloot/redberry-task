@@ -72,6 +72,7 @@ const Home = () => {
     setFilteredListings(filteredData);
   }
 
+  // filter data according to user preferences
   useEffect(() => {
     filterData();
   }, [
@@ -84,6 +85,11 @@ const Home = () => {
     bedrooms,
   ]);
 
+  // remove saved values in addListing page
+  useEffect(() => {
+    sessionStorage.clear();
+  }, []);
+
   return (
     <div className="Home">
       <div className="container">
@@ -93,6 +99,7 @@ const Home = () => {
           <div
             style={{
               paddingTop: 32,
+              paddingBottom: 32,
               display: "flex",
               flexWrap: "wrap",
               gap: 20,

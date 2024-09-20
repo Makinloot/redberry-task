@@ -61,6 +61,8 @@ const AgentForm = () => {
       validateStatus: "",
       help: "",
     });
+    setIsUploaded(false);
+    setImgBinary(null);
   };
 
   const success = () => {
@@ -335,6 +337,8 @@ const AgentForm = () => {
                 setOpenModal(false);
                 form.resetFields();
                 handleResetValidations();
+                setIsUploaded(false);
+                setImgBinary(null);
               }}
             >
               გაუქმება
